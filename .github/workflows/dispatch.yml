@@ -29,5 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     if:  ${{ inputs.print_tags }} 
     steps:
+      - uses: actions/checkout@master
       - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+        run: echo  The tags Aaaarghe ${{ inputs.tags }} 
