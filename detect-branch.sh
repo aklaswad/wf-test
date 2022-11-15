@@ -1,0 +1,1 @@
+echo "detecting current branch..."

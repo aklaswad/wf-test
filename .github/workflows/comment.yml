@@ -5,5 +5,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: detect branch
+        run: $GITHUB_WORKSPACE/detect-branch.sh
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
