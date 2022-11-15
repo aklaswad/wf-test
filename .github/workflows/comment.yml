@@ -6,6 +6,9 @@ jobs:
 
     steps:
       - name: detect branch
-        run: pwd && ls && $GITHUB_WORKSPACE/detect-branch.sh
+        run:
+          - echo "hello"
+          - echo "GWS is $GITHUB_WORKSPACE"
+          - ls
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
