@@ -1,14 +1,14 @@
 on: issue_comment
 name: comment reply
 jobs:
+
   print-username:
     runs-on: ubuntu-latest
 
     steps:
-      - name: detect branch
-        run:
-          - echo "hello"
-          - echo "GWS is $GITHUB_WORKSPACE"
-          - ls
+      - uses: actions/github-script@v6
+        id: dump
+        with:
+          script: console.log(context)
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
