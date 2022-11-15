@@ -9,6 +9,6 @@ jobs:
       - uses: actions/github-script@v6
         id: dump
         with:
-          script: console.log(context.issue.pull_request)
+          script: console.log(context.payload.issue.pull_request)
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
