@@ -13,7 +13,7 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.payload.issue.number
             } )
-            console.log(pr)
+            console.log(pr.data)
             //.head.ref
             //console.log('from pull request', pr_ref)
       - name: Print the input name to STDOUT
