@@ -8,11 +8,12 @@ jobs:
         id: dump
         with:
           script: |
-            console.log( await github.rest.pulls.get({
-              owner: 'aklaswad',
-              repo: 'wf-test',
-              pull_number: 5
-            } ))
+            const pr_ref = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.pulls.number
+            } ).data.head.ref )
+            console.log('from pull request', pr_ref)
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
 
