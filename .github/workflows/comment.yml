@@ -9,6 +9,6 @@ jobs:
       - uses: actions/github-script@v6
         id: dump
         with:
-          script: console.log( github.rest.pulls.get( ...context.payload.repository.full_name.split('/'), context.payload.issue.number ))
+          script: console.log( github.rest.pulls.get('aklaswad', 'wf-test', 5 ) #...context.payload.repository.full_name.split('/'), context.payload.issue.number ))
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
