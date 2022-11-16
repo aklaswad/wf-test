@@ -9,6 +9,7 @@ jobs:
       - uses: actions/github-script@v6
         id: dump
         with:
-          script: console.log( context.payload.repository.owner, octa.rest.pulls.get( ...context.payload.repository.name.split('/'), context.payload.issue.number ))
+          script: console.log( context.payload.repository.owner )
+          #, octa.rest.pulls.get( ...context.payload.repository.name.split('/'), context.payload.issue.number ))
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
