@@ -5,20 +5,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
-        id: dump
+        id: check-dev-label
         with:
           script: |
-            console.log(context)
-            console.log('c.i.l', context.payload.issue.labels)
+            const isPeasyDev = context.payload.issue.labels
+              .filter( l => l.name === 'workflow-dev' ).length ? true : false
+            return isPeasyDev
+      - uses: actions/github-script@v6
+        id: check-pr-ref
+        with:
+          script: |
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.issue.number
             } )
-            console.log(pr)
-            console.log('pr', pr.data.labels)
-            const pr_ref = pr.data.head.ref
-            console.log('from pull request', pr_ref)
+            return pr.data.head.ref
       - name: Print the input name to STDOUT
-        run: echo The username is ${{ inputs.username }}
+        run: echo if ${{ steps.check-dev-label.outputs.result }} then ${{ steps.check-pr-ref.outputs.result }}
 
