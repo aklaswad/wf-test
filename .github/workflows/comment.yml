@@ -13,8 +13,8 @@ jobs:
             return isPeasyDev
       - uses: actions/github-script@v6
         id: check-pr-ref
-        result-encoding: string
         with:
+          result-encoding: string
           script: |
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
