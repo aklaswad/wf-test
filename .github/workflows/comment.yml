@@ -24,3 +24,9 @@ jobs:
       - name: Print the input name to STDOUT
         run: echo if ${{ steps.check-dev-label.outputs.result }} then ${{ steps.check-pr-ref.outputs.result }}
 
+      - uses: actions/checkout@v3
+        if: ${{ steps.check-dev-label.outputs.result }}
+        with:
+          ref: ${{ steps.check-pr-ref.outputs.result }}
+      - name: Print repo
+        run: cd $GITHUB_WORKSPACE && ls
