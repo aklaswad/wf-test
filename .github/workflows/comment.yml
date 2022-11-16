@@ -1,14 +1,12 @@
 on: issue_comment
 name: comment reply
 jobs:
-
   print-username:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/github-script@v6
         id: dump
         with:
-          script: console.log( github.rest.pulls.get({owner: 'aklaswad', repo: 'wf-test', pull_number: 5} )) #...context.payload.repository.full_name.split('/'), context.payload.issue.number ))
+          script: console.log( github.rest.pulls.get({ owner: 'aklaswad', repo: 'wf-test', pull_number: 5 } ))
       - name: Print the input name to STDOUT
         run: echo The username is ${{ inputs.username }}
