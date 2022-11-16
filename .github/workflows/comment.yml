@@ -8,7 +8,7 @@ jobs:
         id: dump
         with:
           script: |
-            console.log( github.rest.pulls.get({
+            console.log( await github.rest.pulls.get({
               owner: 'aklaswad',
               repo: 'wf-test',
               pull_number: 5
