@@ -5,17 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
-        id: check-dev-label
-        with:
-          script: |
-            const isPeasyDev = context.payload.issue.labels
-              .filter( l => l.name === 'workflow-dev' ).length ? true : false
-            return isPeasyDev
-      - uses: actions/github-script@v6
         id: check-pr-ref
         with:
           result-encoding: string
           script: |
+            const isPeasyDev = context.payload.issue.labels
+              .filter( l => l.name === 'workflow-dev' ).length ? 1 : 0
+            if ( !isPeasyDev ) {
+              return 'main'
+            }
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -26,7 +24,6 @@ jobs:
         run: echo if ${{ steps.check-dev-label.outputs.result }} then ${{ steps.check-pr-ref.outputs.result }}
 
       - uses: actions/checkout@v3
-        if: ${{ steps.check-dev-label.outputs.result }}
         with:
           ref: ${{ steps.check-pr-ref.outputs.result }}
       - name: Print repo
