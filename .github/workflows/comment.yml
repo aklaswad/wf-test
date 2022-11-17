@@ -9,17 +9,22 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const isPeasyDev = context.payload.issue.labels
-              .filter( l => l.name === 'workflow-dev' ).length ? 1 : 0
-            if ( !isPeasyDev ) {
+            const hasDeployLabel = context.payload.issue.labels
+             .filter( l => l.name === 'Type:Deployment' ).length ? 1 : 0
+            if ( !hasDeployLabel ) {
+              console.log("Going to check out from [master] branch...")
               return 'main'
             }
+
+            console.log('Got Type:Deployment label')
             const pr = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.issue.number
-            } )
-            return pr.data.head.ref
+            })
+            const ref = pr.data.head.ref
+            console.log("Going to check out from [" + ref + "] branch...")
+            return ref
       - name: Print the input name to STDOUT
         run: echo if ${{ steps.check-dev-label.outputs.result }} then ${{ steps.check-pr-ref.outputs.result }}
 
