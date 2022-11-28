@@ -13,6 +13,6 @@ jobs:
             const comment = context.payload.comment
             const issue = context.payload.issue
             const repo = context.payload.repo
-            const sender = context.paload.sender
+            const sender = context.payload.sender
 
             console.log({ comment, issue, repo, sender })
