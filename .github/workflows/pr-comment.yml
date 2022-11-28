@@ -1,0 +1,13 @@
+on: issue_comment
+name: comment reply
+jobs:
+  print-username:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: check-pr-ref
+        name: dump comment
+        with:
+          result-encoding: string
+          script: |
+            console.log({ github, context, io, exec })
