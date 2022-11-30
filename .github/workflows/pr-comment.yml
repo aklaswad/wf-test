@@ -41,5 +41,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: parse
     steps:
-      - run: echo ${{needs.parse.outputs.command}} :: ${{needs.parse.outputs.token}} got
+      - run: echo ${{needs.parse.outputs.command}}  ${{needs.parse.outputs.token}} got
 
