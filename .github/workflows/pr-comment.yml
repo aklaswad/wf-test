@@ -4,6 +4,7 @@ jobs:
   parse:
     runs-on: ubuntu-latest
     outputs:
+      deploy: ${{ fromJSON( steps.parse.outputs.result ).deploy }}
       command: ${{ fromJSON( steps.parse.outputs.result ).command }}
       selector: ${{ fromJSON( steps.parse.outputs.result ).selector }}
       token: ${{ fromJSON( steps.parse.outputs.result ).token }}
@@ -22,6 +23,7 @@ jobs:
             const [ command, token ] = comment.substr(1).split(':')
             if ( command === 'alt-deploy-to-staging' ) {
               return {
+                deploy: true,
                 selector: 'deploy-staging',
                 command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-staging',
                 token: token,
@@ -37,13 +39,13 @@ jobs:
   deploy-staging:
     runs-on: ${{ needs.parse.outputs.runner }}
     needs: parse
-    if: needs.parse.outputs.selector == 'deploy-staging'
+    if: needs.parse.outputs.deploy
     steps:
       - run: ${{ needs.parse.outputs.command }}
   deploy-legacy:
     runs-on: ${{ needs.parse.outputs.runner }}
     needs: parse
-    if: needs.parse.outputs.selector == 'deploy-legacy'
+    if: needs.parse.outputs.deploy
     steps:
       - run: ${{ needs.parse.outputs.command }}
   dump:
