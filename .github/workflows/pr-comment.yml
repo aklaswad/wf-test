@@ -1,18 +1,33 @@
 on: issue_comment
 name: comment test
 jobs:
-  print-username:
+  parse-comment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
-        id: check-pr-ref
-        name: dump comment
+        id: parse-command
+        name: Parse command from issue comment
         with:
           result-encoding: string
           script: |
-            const comment = context.payload.comment
-            const issue = context.payload.issue
-            const repo = context.payload.repo
-            const sender = context.payload.sender
+            const comment = context.payload.comment.body
+            if ( ! /^!/.test(comment) ) {
+              // It's not command.
+              return
+            }
+            const [ command, token ] = comment.substr(1).split(':')
+            if ( command === 'alt-deploy-to-stating' ) {
+              return 'deploy-staging'
+            }
+            return 'deploy-legacy'
+  deploy-staging:
+    runs-on: [ self-hosted, deploy-staging ]
+    if: parse-command == 'deploy-staging'
+    steps:
+      - run: echo "deploy-staging"
+  deploy-legacy:
+    runs-on: ubuntu-latest
+    if: parse-command == 'deploy-legacy'
+    steps:
+      - run: echo "deploy-legacy"
 
-            console.log({ comment, issue, repo, sender })
