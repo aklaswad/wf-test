@@ -4,9 +4,8 @@ jobs:
   parse:
     runs-on: ubuntu-latest
     outputs:
-      command: ${{ steps.parse.outputs.command }}
-      token: ${{ steps.parse.outputs.token }}
-      results: ${{ steps.parse.outputs.result }}
+      command: ${{ parseJSON( steps.parse.outputs.result ).command }}
+      token: ${{ parseJSON( steps.parse.outputs.result ).token }}
     steps:
       - uses: actions/github-script@v6
         id: parse
@@ -24,15 +23,15 @@ jobs:
             }
             return { command: 'deploy-legacy', token: token }
   deploy-staging:
-    runs-on: [ self-hosted, deploy-staging ]
+    runs-on: ubuntu-latest
     needs: parse
-    if: fromJSON(needs.parse.outputs.results).command == 'deploy-staging'
+    if: needs.parse.outputs.command == 'deploy-staging'
     steps:
       - run: echo "deploy-staging"
   deploy-legacy:
     runs-on: ubuntu-latest
     needs: parse
-    if: fromJSON(needs.parse.outputs.results).command == 'deploy-legacy'
+    if: needs.parse.outputs.command == 'deploy-legacy'
     steps:
       -
         run: |
@@ -42,5 +41,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: parse
     steps:
-      - run: echo ${{needs.parse.outputs.results}} got...
+      - run: echo ${{needs.parse.outputs.command}} :: ${{needs.parse.outputs.token}} got
 
