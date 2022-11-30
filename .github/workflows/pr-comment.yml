@@ -34,9 +34,10 @@ jobs:
     needs: parse
     if: fromJSON(needs.parse.outputs.results).command == 'deploy-legacy'
     steps:
-      - run: |
-        echo "deploy-legacy"
-        echo got ${{needs.parse.outputs.results}}
+      -
+        run: |
+          echo "deploy-legacy"
+          echo got ${{needs.parse.outputs.results}}
   dump:
     runs-on: ubuntu-latest
     needs: parse
