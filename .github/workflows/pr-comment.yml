@@ -18,7 +18,7 @@ jobs:
             const comment = context.payload.comment.body
             if ( ! /^!/.test(comment) ) {
               // It's not command.
-              return
+              return {}
             }
             const [ command, token ] = comment.substr(1).split(':')
             if ( command === 'alt-deploy-to-staging' ) {
