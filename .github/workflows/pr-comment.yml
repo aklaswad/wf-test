@@ -23,7 +23,7 @@ jobs:
             }
             return { command: 'deploy-legacy', token: token }
   deploy-staging:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ${{ needs.parse.outputs.token }} ]
     needs: parse
     if: needs.parse.outputs.command == 'deploy-staging'
     steps:
