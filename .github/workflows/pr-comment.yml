@@ -3,12 +3,14 @@ name: comment test
 jobs:
   parse:
     runs-on: ubuntu-latest
+    outputs:
+      command: ${{ steps.parse.outputs.command }}
+      token: ${{ steps.parse.outputs.token }}
     steps:
       - uses: actions/github-script@v6
         id: parse
         name: Parse command from issue comment
         with:
-          result-encoding: string
           script: |
             const comment = context.payload.comment.body
             if ( ! /^!/.test(comment) ) {
@@ -17,17 +19,19 @@ jobs:
             }
             const [ command, token ] = comment.substr(1).split(':')
             if ( command === 'alt-deploy-to-stating' ) {
-              return 'deploy-staging'
+              return { command: 'deploy-staging', token: token }
             }
-            return 'deploy-legacy'
+            return { command: 'deploy-legacy', token: token }
   deploy-staging:
     runs-on: [ self-hosted, deploy-staging ]
-    if: jobs.parse.steps.parse.outputs.result == 'deploy-staging'
+    needs: parse
+    if: needs.parse.outputs.command == 'deploy-staging'
     steps:
       - run: echo "deploy-staging"
   deploy-legacy:
     runs-on: ubuntu-latest
-    if: jobs.parse.steps.parse.outputs.result == 'deploy-legacy'
+    needs: parse
+    if: needs.parse.outputs.command == 'deploy-legacy'
     steps:
       - run: echo "deploy-legacy"
 
