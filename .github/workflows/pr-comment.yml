@@ -23,14 +23,14 @@ jobs:
             if ( command === 'alt-deploy-to-staging' ) {
               return {
                 selector: 'deploy-staging',
-                command: 'cd $GITHUB_WORKSPACE && ls && echo I am deploy-staging',
+                command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-staging',
                 token: token,
                 runner: '[ self-hosted, private ]'
               }
             }
             return {
               selector: 'deploy-legacy',
-              command: 'cd $GITHUB_WORKSPACE && ls && echo I am deploy-legacy',
+              command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-leg',
               token: token,
               runner: 'ubuntu-latest',
             }
