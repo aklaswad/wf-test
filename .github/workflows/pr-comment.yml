@@ -26,18 +26,18 @@ jobs:
   deploy-staging:
     runs-on: [ self-hosted, deploy-staging ]
     needs: parse
-    if: needs.parse.outputs.command == 'deploy-staging'
+    if: needs.parse.outputs.results.command == 'deploy-staging'
     steps:
       - run: echo "deploy-staging"
   deploy-legacy:
     runs-on: ubuntu-latest
     needs: parse
-    if: needs.parse.outputs.command == 'deploy-legacy'
+    if: needs.parse.outputs.results.command == 'deploy-legacy'
     steps:
       - run: echo "deploy-legacy"
   dump:
     runs-on: ubuntu-latest
     needs: parse
     steps:
-      - run: echo ${{needs.parse.outputs.token}} ${{needs.parse.outputs.results }} got...
+      - run: echo ${{needs.parse.outputs.results.command }} got...
 
