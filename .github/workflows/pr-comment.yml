@@ -19,14 +19,14 @@ jobs:
               return
             }
             const [ command, token ] = comment.substr(1).split(':')
-            if ( command === 'alt-deploy-to-stating' ) {
+            if ( command === 'alt-deploy-to-staging' ) {
               return { command: 'deploy-staging', token: token }
             }
             return { command: 'deploy-legacy', token: token }
   deploy-staging:
     runs-on: [ self-hosted, deploy-staging ]
     needs: parse
-    if: needs.parse.outputs.results.command == 'deploy-staging'
+    if: fromJSON(needs.parse.outputs.results).command == 'deploy-staging'
     steps:
       - run: echo "deploy-staging"
   deploy-legacy:
