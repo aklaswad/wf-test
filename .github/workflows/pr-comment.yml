@@ -1,9 +1,8 @@
 on: issue_comment
 name: comment test
 jobs:
-  parse-comment:
+  parse:
     runs-on: ubuntu-latest
-    id: parse
     steps:
       - uses: actions/github-script@v6
         id: parse
