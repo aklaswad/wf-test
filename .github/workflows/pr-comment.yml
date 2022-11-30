@@ -18,7 +18,7 @@ jobs:
             const comment = context.payload.comment.body
             if ( ! /^!/.test(comment) ) {
               // It's not command.
-              return { ignore: true }
+              return { ignore: true, runner: 'ubuntu-latest' }
             }
             const [ command, token ] = comment.substr(1).split(':')
             if ( command === 'alt-deploy-to-staging' ) {
@@ -26,7 +26,7 @@ jobs:
                 selector: 'deploy-staging',
                 command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-staging',
                 token: token,
-                runner: '[ self-hosted, private ]'
+                runner: 'ubuntu-latest'
               }
             }
             return {
