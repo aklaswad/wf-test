@@ -1,0 +1,11 @@
+on: push
+name: push-note
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: dump
+        with:
+          script: |
+            console.log({ github, context })
