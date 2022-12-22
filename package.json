@@ -1,0 +1,22 @@
+{
+  "name": "wf-test",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aklaswad/wf-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aklaswad/wf-test/issues"
+  },
+  "homepage": "https://github.com/aklaswad/wf-test#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
