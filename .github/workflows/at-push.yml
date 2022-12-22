@@ -4,9 +4,11 @@ jobs:
   log:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@latest
       - uses: actions/github-script@v6
         id: dump
         with:
           script: |
             console.log({ github, context })
+      - run: npm ci
       - run: npm test
