@@ -12,3 +12,8 @@ jobs:
             console.log({ github, context })
       - run: npm ci
       - run: npm test
+  perltest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run perltest
