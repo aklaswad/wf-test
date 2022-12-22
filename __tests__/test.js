@@ -1,3 +1,3 @@
 test('Good morning', () => {
-  expect(true).toBeTruthy();
+  expect(false).toBeTruthy();
 });
