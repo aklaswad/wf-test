@@ -13,7 +13,334 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: |
-          echo "::error file=package.json,line=1,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
+          foo bar\
+          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon\
           foo bar\
           wrong"
   perltest:
