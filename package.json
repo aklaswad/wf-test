@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "perltest": "prove --merge --ignore-exit --formatter TAP::Formatter::JUnit --timer -PPeatixEnv -j8 t :: --debug >/dev/null 2>&1"
+    "perltest": "prove --formatter TAP::Formatter::JUnit t"
   },
   "repository": {
     "type": "git",
