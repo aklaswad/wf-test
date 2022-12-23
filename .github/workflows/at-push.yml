@@ -38,7 +38,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(process.env)
+            const { GITHUB_WORKSPACE } = process.env
+            console.log( 'ghws', GITHUB_WORKSPACE )
             tap2gh = require('./tap2gh.js')
             const res = tap2gh()
             console.log(res)
