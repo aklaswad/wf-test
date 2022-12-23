@@ -10,12 +10,12 @@ jobs:
         with:
           script: |
             console.log({ github, context })
-      - run: npm ci
-      - run: npm test
       - run: |
           echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon
           foo bar
           wrong"
+      - run: npm ci
+      - run: npm test
   perltest:
     runs-on: ubuntu-latest
     steps:
