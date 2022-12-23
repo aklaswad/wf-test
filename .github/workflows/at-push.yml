@@ -40,8 +40,11 @@ jobs:
           script: |
             const { GITHUB_WORKSPACE } = process.env
             console.log( 'ghws', GITHUB_WORKSPACE )
+            const globber = await glob.create(GITHUB_WORKSPACE + '/tapout/t/**.t')
+            const files = await globber.glob()
+            console.log('files...', files)
             tap2gh = require('./tap2gh.js')
-            const res = tap2gh()
+            const res = tap2gh(files)
             console.log(res)
             res.annotations.forEach( ann => console.log(ann) );
             return { pass: res.pass, fail: res.fail, total: res.total }
