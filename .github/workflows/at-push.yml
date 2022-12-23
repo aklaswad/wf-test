@@ -44,7 +44,7 @@ jobs:
             const files = await globber.glob()
             tap2gh = require('./tap2gh.js')
             const res = tap2gh(files)
-            console.log(res)
+            console.log(res.result)
             res.annotations.forEach( ann => {
               core.error( ann.text, ann.info )
             })
