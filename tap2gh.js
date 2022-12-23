@@ -1,49 +1,45 @@
-#!/usr/bin/env node
 const fs = require('fs')
-const glob = require('glob')
 const parser = require('tap-parser')
 
-function run () {
+function run (files) {
   const annotations = []
   let pass = 0
   let fail = 0
   let total = 0
-  glob("tapout/t/*.t", (er, files) => {
 
-    for ( const file of files ) {
-      const content = fs.readFileSync(file, 'utf-8')
-      const lines = parser.Parser.parse(content)
-      let anno_buf = []
-      let collecting = false;
-      let complete
-      for ( const line of lines ) {
-        const [type, result] = [...line]
-        if ( collecting ) {
-          if ( type === 'comment' ) {
-            anno_buf.push(result)
-          }
-          else {
-            collecting = false
-            if ( annotations.length < 10 ) {
-              annotations.push(
-                finalize_annotation(result, anno_buf)
-              )
-            }
-            anno_buf = []
-          }
+  for ( const file of files ) {
+    const content = fs.readFileSync(file, 'utf-8')
+    const lines = parser.Parser.parse(content)
+    let anno_buf = []
+    let collecting = false;
+    let complete
+    for ( const line of lines ) {
+      const [type, result] = [...line]
+      if ( collecting ) {
+        if ( type === 'comment' ) {
+          anno_buf.push(result)
         }
-        if ( type === 'assert' && !result.ok ) {
-          collecting = result
-        }
-        else if ( type === 'complete' ) {
-          pass += result.pass
-          fail += result.fail
-          total += result.count
+        else {
+          collecting = false
+          if ( annotations.length < 10 ) {
+            annotations.push(
+              finalize_annotation(result, anno_buf)
+            )
+          }
+          anno_buf = []
         }
       }
+      if ( type === 'assert' && !result.ok ) {
+        collecting = result
+      }
+      else if ( type === 'complete' ) {
+        pass += result.pass
+        fail += result.fail
+        total += result.count
+      }
     }
+  }
 
-  })
   return { pass, fail, annotations }
 }
 
