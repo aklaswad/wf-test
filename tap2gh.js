@@ -2,47 +2,50 @@
 const fs = require('fs')
 const glob = require('glob')
 const parser = require('tap-parser')
-glob("tapout/t/*.t", (er, files) => {
-  const annotations = []
-  let pass = 0
-  let fail = 0
-  let total = 0
 
-  for ( const file of files ) {
-    const content = fs.readFileSync(file, 'utf-8')
-    const lines = parser.Parser.parse(content)
-    let anno_buf = []
-    let collecting = false;
-    let complete
-    for ( const line of lines ) {
-      const [type, result] = [...line]
-      if ( collecting ) {
-        if ( type === 'comment' ) {
-          anno_buf.push(result)
-        }
-        else {
-          collecting = false
-          if ( annotations.length < 10 ) {
-            annotations.push(
-              finalize_annotation(result, anno_buf)
-            )
+function run () {
+  glob("tapout/t/*.t", (er, files) => {
+    const annotations = []
+    let pass = 0
+    let fail = 0
+    let total = 0
+
+    for ( const file of files ) {
+      const content = fs.readFileSync(file, 'utf-8')
+      const lines = parser.Parser.parse(content)
+      let anno_buf = []
+      let collecting = false;
+      let complete
+      for ( const line of lines ) {
+        const [type, result] = [...line]
+        if ( collecting ) {
+          if ( type === 'comment' ) {
+            anno_buf.push(result)
           }
-          anno_buf = []
+          else {
+            collecting = false
+            if ( annotations.length < 10 ) {
+              annotations.push(
+                finalize_annotation(result, anno_buf)
+              )
+            }
+            anno_buf = []
+          }
         }
-      }
-      if ( type === 'assert' && !result.ok ) {
-        collecting = result
-      }
-      else if ( type === 'complete' ) {
-        pass += result.pass
-        fail += result.fail
-        total += result.count
+        if ( type === 'assert' && !result.ok ) {
+          collecting = result
+        }
+        else if ( type === 'complete' ) {
+          pass += result.pass
+          fail += result.fail
+          total += result.count
+        }
       }
     }
-  }
-  annotations.forEach( ann => console.log(ann))
+    annotations.forEach( ann => console.log(ann))
 
-})
+  })
+}
 
 function finalize_annotation (result, buf) {
   const subject = buf[0].replace(/^#\s+/,'')
@@ -62,4 +65,4 @@ function finalize_annotation (result, buf) {
   return `::error file=${file},line=${line}::${text}`
 }
 
-
+module.exports = run

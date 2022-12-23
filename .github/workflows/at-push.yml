@@ -37,5 +37,6 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log('::error file=package.json,line=3::hoge%0Amoge')
+            tap2gh = require('./tap2gh.js')
+            tap2gh()
 
