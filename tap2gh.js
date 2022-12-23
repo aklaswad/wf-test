@@ -55,6 +55,7 @@ function finalize_annotation (buf, name, fullname, id) {
       .join('')
     || name
     || fullname
+    || title
     || (id ? 'Test #' + id + ' Failed' : 'Test failed')
   return { text, info: { title, file, startLine } }
 }

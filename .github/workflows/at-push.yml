@@ -45,7 +45,7 @@ jobs:
             tap2gh = require('./tap2gh.js')
             const res = tap2gh(files)
             res.annotations.forEach( ann => {
-              console.log(ann.result)
+              console.log(ann.text, ann.info)
               core.error( ann.text, ann.info )
             })
             return { pass: res.pass, fail: res.fail, total: res.total }
