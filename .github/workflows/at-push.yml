@@ -37,8 +37,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const glob = require('glob')
+            const glob_ = require('glob')
             const parser = require('tap-parser')
             tap2gh = require('./tap2gh.js')
-            tap2gh(glob,parser)
+            tap2gh(glob_,parser)
 
