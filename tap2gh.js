@@ -54,6 +54,7 @@ function finalize_annotation (result, buf) {
       .map( l => l.replace(/^#/,'') )
       .join('')
     || result.name
+    || 'Test failed'
   return { text, info: { title, file, startLine } }
 }
 
