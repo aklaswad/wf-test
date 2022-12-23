@@ -35,6 +35,7 @@ jobs:
           ls
           pwd
       - run: ls $GITHUB_WORKSPACE/tapout/t
+      - run: cat $GITHUB_WORKSPACE/tapout/t/test.t
       - uses: actions/github-script@v6
         with:
           script: |

@@ -53,6 +53,7 @@ function finalize_annotation (result, buf) {
       .slice(2)
       .map( l => l.replace(/^#/,'') )
       .join('')
+    || result.name
   return { text, info: { title, file, startLine } }
 }
 
