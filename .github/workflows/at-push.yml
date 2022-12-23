@@ -2,9 +2,6 @@ on: push
 name: push-note
 jobs:
   log:
-    strategy:
-      matrix:
-        batch: [1, 2, 3]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,9 +11,7 @@ jobs:
           script: |
             console.log({ github, context })
       - run: |
-          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing ${{ matrix.batch }} semicolon%0Afoobar%0D%0Ayeaaa?
-          foo bar
-          wrong"
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?"
       - run: npm ci
       - run: npm test
   perltest:
@@ -28,4 +23,7 @@ jobs:
           perl-version: '5.34'
           install-modules-with: cpanm
           install-modules-args: --with-develop --with-configure
-      - run: npm run perltest
+      - environment:
+          PERL_TEST_HARNESS_DUMP_TAP: ${GITHUB_WORKSPACE}/tapout/
+        run: npm run perltest
+      - run: ls tapout
