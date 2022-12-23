@@ -55,7 +55,7 @@ function finalize_annotation (result, buf) {
       .join('')
     || result.name
     || 'Test failed'
-  return { text, info: { title, file, startLine } }
+  return { text, info: { title, file, startLine }, result }
 }
 
 module.exports = run
