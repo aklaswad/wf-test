@@ -41,7 +41,7 @@ jobs:
             const { GITHUB_WORKSPACE } = process.env
             const globber = await glob.create(GITHUB_WORKSPACE + '/tapout/t/**.t')
             const files = await globber.glob()
-            tap2gh ire('./tap2gh.js')
+            tap2gh = require('./tap2gh.js')
             const res = tap2gh(files)
             console.log(res)
             res.annotations.forEach( ann => {

@@ -51,12 +51,7 @@ function finalize_annotation (result, buf) {
   const text =
     buf
       .slice(2)
-      .map( l => {
-        l.replace(/^#/,'')
-          .replace(/\n/g, '%0A')
-          .replace(/\r/g, '%0D')
-          .replace(/%/g, '%25')
-      })
+      .map( l => l.replace(/^#/,'') )
       .join('')
   return { text, info: { title, file, startLine } }
 }
