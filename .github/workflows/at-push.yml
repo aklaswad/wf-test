@@ -2,6 +2,9 @@ on: push
 name: push-note
 jobs:
   log:
+    strategy:
+      matrix:
+        batch: [1, 2, 3]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -11,7 +14,7 @@ jobs:
           script: |
             console.log({ github, context })
       - run: |
-          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing ${{ matrix.batch }} semicolon%0Afoobar%0D%0Ayeaaa?
           foo bar
           wrong"
       - run: npm ci
