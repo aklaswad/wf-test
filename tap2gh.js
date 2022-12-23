@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 const fs = require('fs')
+const glob = require('glob')
+const parser = require('tap-parser')
 
 function run (glob, parser) {
+  const annotations = []
+  let pass = 0
+  let fail = 0
+  let total = 0
   glob("tapout/t/*.t", (er, files) => {
-    const annotations = []
-    let pass = 0
-    let fail = 0
-    let total = 0
 
     for ( const file of files ) {
       const content = fs.readFileSync(file, 'utf-8')
@@ -40,9 +42,9 @@ function run (glob, parser) {
         }
       }
     }
-    annotations.forEach( ann => console.log(ann))
 
   })
+  return { pass, fail, annotations }
 }
 
 function finalize_annotation (result, buf) {

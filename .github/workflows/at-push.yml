@@ -38,8 +38,9 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const glob_ = require('glob')
-            const parser = require('tap-parser')
             tap2gh = require('./tap2gh.js')
-            tap2gh(glob_,parser)
+            const res = tap2gh(glob_,parser)
+            console.log(res)
+            res.annotations.forEach( ann => console.log(ann) );
+            return { pass: pass, fail: fail, total: total }
 
