@@ -34,7 +34,7 @@ jobs:
           npm run perltest || true &> /dev/null
           ls
           pwd
-      - run: ls tapout
+      - run: ls $GITHUB_WORKSPACE/tapout/t
       - uses: actions/github-script@v6
         with:
           script: |
@@ -42,5 +42,5 @@ jobs:
             const res = tap2gh()
             console.log(res)
             res.annotations.forEach( ann => console.log(ann) );
-            return { pass: pass, fail: fail, total: total }
+            return { pass: res.pass, fail: res.fail, total: res.total }
 
