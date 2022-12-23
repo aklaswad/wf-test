@@ -34,3 +34,4 @@ jobs:
           ls
           pwd
       - run: ls tapout
+      - run: npm run taptest
