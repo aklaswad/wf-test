@@ -40,14 +40,14 @@ function run (files) {
     }
   }
 
-  return { pass, fail, annotations }
+  return { total, pass, fail, annotations }
 }
 
 function finalize_annotation (result, buf) {
-  const subject = buf[0].replace(/^#\s+/,'')
+  const title = buf[0].replace(/^#\s+/,'')
   buf[1].match(/^#\s+at\s+(\S+)\s+line\s+(\d+)/);
   const file = RegExp.$1
-  const line = RegExp.$2
+  const startLine = RegExp.$2
   const text =
     buf
       .slice(2)
@@ -58,7 +58,7 @@ function finalize_annotation (result, buf) {
           .replace(/%/g, '%25')
       })
       .join('')
-  return `::error file=${file},line=${line}::${text}`
+  return { text, info: { title, file, startLine } }
 }
 
 module.exports = run
