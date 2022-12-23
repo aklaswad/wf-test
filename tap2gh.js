@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs')
-const glob = require('glob')
-const parser = require('tap-parser')
 
-function run () {
+function run (glob, parser) {
   glob("tapout/t/*.t", (er, files) => {
     const annotations = []
     let pass = 0
