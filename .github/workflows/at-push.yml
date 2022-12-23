@@ -28,6 +28,9 @@ jobs:
           install-modules-with: cpanm
           install-modules-args: --with-develop --with-configure
       - env:
-          PERL_TEST_HARNESS_DUMP_TAP: ${GITHUB_WORKSPACE}/tapout/
-        run: npm run perltest || true &> /dev/null
+          PERL_TEST_HARNESS_DUMP_TAP: ./tapout/
+        run: |
+          npm run perltest || true &> /dev/null
+          ls
+          pwd
       - run: ls tapout
