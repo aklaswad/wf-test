@@ -23,7 +23,7 @@ function run (files) {
           collecting = false
           if ( annotations.length < 10 ) {
             annotations.push(
-              finalize_annotation(result, anno_buf)
+              finalize_annotation(anno_buf, result.name, result.fullname, result.id)
             )
           }
           anno_buf = []
@@ -43,7 +43,7 @@ function run (files) {
   return { total, pass, fail, annotations }
 }
 
-function finalize_annotation (result, buf) {
+function finalize_annotation (buf, name, fullname, id) {
   const title = buf[0].replace(/^#\s+/,'')
   buf[1].match(/^#\s+at\s+(\S+)\s+line\s+(\d+)/);
   const file = RegExp.$1
@@ -53,8 +53,9 @@ function finalize_annotation (result, buf) {
       .slice(2)
       .map( l => l.replace(/^#/,'') )
       .join('')
-    || result.name
-    || 'Test failed'
+    || name
+    || fullname
+    || (id ? 'Test #' + id + ' Failed' : 'Test failed')
   return { text, info: { title, file, startLine }, result }
 }
 
