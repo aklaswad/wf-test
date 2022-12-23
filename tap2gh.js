@@ -3,7 +3,7 @@ const fs = require('fs')
 const glob = require('glob')
 const parser = require('tap-parser')
 
-function run (glob, parser) {
+function run () {
   const annotations = []
   let pass = 0
   let fail = 0

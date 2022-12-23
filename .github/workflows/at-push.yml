@@ -39,7 +39,7 @@ jobs:
         with:
           script: |
             tap2gh = require('./tap2gh.js')
-            const res = tap2gh(glob_,parser)
+            const res = tap2gh()
             console.log(res)
             res.annotations.forEach( ann => console.log(ann) );
             return { pass: pass, fail: fail, total: total }
