@@ -34,37 +34,8 @@ jobs:
           ls
           pwd
       - run: ls tapout
-      - run: npm run taptest
-      - uses: actions/github-script@v6
-        id: dump
-        with:
-          script: |
-            console.log({ github, context })
-      - run: |
-          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?"
-      - run: npm ci
-      - run: npm test
-  perltest:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: '5.34'
-          install-modules-with: cpanm
-          install-modules-args: --with-develop --with-configure
-      - env:
-          PERL_TEST_HARNESS_DUMP_TAP: ./tapout/
-        run: |
-          npm run perltest || true &> /dev/null
-          ls
-          pwd
-      - run: ls tapout
       - uses: actions/github-script@v6
         with:
           script: |
             console.log('::error file=package.json,line=3::hoge%0Amoge')
+
