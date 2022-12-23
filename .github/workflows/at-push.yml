@@ -18,12 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
       - uses: shogo82148/actions-setup-perl@v1
         with:
           perl-version: '5.34'
           install-modules-with: cpanm
           install-modules-args: --with-develop --with-configure
-      - env:
+        env:
           PERL_TEST_HARNESS_DUMP_TAP: ${GITHUB_WORKSPACE}/tapout/
         run: npm run perltest
       - run: ls tapout
