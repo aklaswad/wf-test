@@ -56,7 +56,7 @@ function finalize_annotation (buf, name, fullname, id) {
     || name
     || fullname
     || (id ? 'Test #' + id + ' Failed' : 'Test failed')
-  return { text, info: { title, file, startLine }, result }
+  return { text, info: { title, file, startLine } }
 }
 
 module.exports = run
