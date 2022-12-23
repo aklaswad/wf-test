@@ -46,6 +46,6 @@ jobs:
             console.log(res)
             res.annotations.forEach( ann => {
               core.error( ann.text, ann.info )
-            }
+            })
             return { pass: res.pass, fail: res.fail, total: res.total }
 
