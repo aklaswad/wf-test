@@ -29,5 +29,5 @@ jobs:
           install-modules-args: --with-develop --with-configure
       - env:
           PERL_TEST_HARNESS_DUMP_TAP: ${GITHUB_WORKSPACE}/tapout/
-        run: npm run perltest
+        run: npm run perltest && true
       - run: ls tapout
