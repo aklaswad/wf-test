@@ -1,0 +1,18 @@
+on: push
+name: push-note
+jobs:
+  log:
+    runs-on: [ "self-hosted", "neverrun..." ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: dump
+        with:
+          script: |
+            console.log({ github, context })
+      - run: |
+          pwd
+          ls
+          whoami
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?"
+
