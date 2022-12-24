@@ -5,7 +5,7 @@ const config = {
     "**/__tests__/**/*.+(ts|tsx|js)",
     "**/?(*.)+(spec|test).+(ts|tsx|js)",
   ],
-  reporters: ["default", "github-actions"], // <- この行を足す
+  reporters: ["default", "github-actions"],
 };
 
 module.exports = config;
