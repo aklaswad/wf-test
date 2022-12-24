@@ -2,7 +2,7 @@ on: push
 name: push-note
 jobs:
   log:
-    runs-on: [self-hosted testing]
+    runs-on: [ "self-hosted", "testing" ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
