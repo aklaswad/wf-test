@@ -1,0 +1,10 @@
+on: push
+name: Script Test On Push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: ./helloworld.yml
+        with:
+          who-to-greet: Akira
