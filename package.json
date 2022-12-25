@@ -1,0 +1,37 @@
+{
+  "name": "wf-test",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
+    "perltest": "prove --merge --timer --formatter TAP::Formatter::JUnit t > /dev/null 2>&1",
+    "taptest": "./tap2gh.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aklaswad/wf-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aklaswad/wf-test/issues"
+  },
+  "homepage": "https://github.com/aklaswad/wf-test#readme",
+  "devDependencies": {
+    "glob": "^8.0.3",
+    "jest": "^29.3.1",
+    "jest-junit": "^15.0.0",
+    "tap-parser": "^12.0.1"
+  },
+  "jest-junit": {
+    "outputDirectory": "tapout/t",
+    "outputName": "jest-junit.xml",
+    "ancestorSeparator": " › ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
+  }
+}

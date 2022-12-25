@@ -1,0 +1,36 @@
+on: push
+name: push-note
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - uses: actions/github-script@v6
+        id: dump
+        with:
+          script: |
+            console.log({ github, context })
+      - run: npm ci
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.34'
+          install-modules-with: cpanm
+          install-modules-args: --with-develop --with-configure
+      - env:
+          PERL_TEST_HARNESS_DUMP_TAP: ./tapout/
+        run: |
+          npm run perltest || true &> /dev/null
+          ls
+          pwd
+      - run: npm run test:ci
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()    # run this step even if previous step failed
+        with:
+          name: Test results            # Name of the check run which will be created
+          path: tapout/t/*.xml    # Path to test results
+          reporter: java-junit        # Format of test results if: always()
