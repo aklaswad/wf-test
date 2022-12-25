@@ -42,17 +42,10 @@ jobs:
           pwd
       - run: ls $GITHUB_WORKSPACE/tapout/t
       - run: cat $GITHUB_WORKSPACE/tapout/t/test.t
-      - uses: actions/github-script@v6
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
         with:
-          script: |
-            const { GITHUB_WORKSPACE } = process.env
-            const globber = await glob.create(GITHUB_WORKSPACE + '/tapout/t/**.t')
-            const files = await globber.glob()
-            tap2gh = require('./tap2gh.js')
-            const res = tap2gh(files)
-            res.annotations.forEach( ann => {
-              console.log(ann.text, ann.info)
-              core.error( ann.text, ann.info )
-            })
-            return { pass: res.pass, fail: res.fail, total: res.total }
-
+          name: Perl Tests            # Name of the check run which will be created
+          path: tapout/*.xml    # Path to test results
+          reporter: jest-junit        # Format of test results
