@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:ci": "jest --ci --reporters=default --reporters=jest-junit",
-    "perltest": "prove --merge --ignore-exit --timer --formatter TAP::Formatter::JUnit t > /dev/null 2>&1",
+    "perltest": "prove --merge --timer --formatter TAP::Formatter::JUnit t > /dev/null 2>&1",
     "taptest": "./tap2gh.js"
   },
   "repository": {
