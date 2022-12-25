@@ -1,0 +1,52 @@
+on: push
+name: push-note
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        id: dump
+        with:
+          script: |
+            console.log({ github, context })
+      - run: |
+          echo "::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?"
+      - run: npm ci
+      - run: npm test
+  perltest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - run: npm ci
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.34'
+          install-modules-with: cpanm
+          install-modules-args: --with-develop --with-configure
+      - env:
+          PERL_TEST_HARNESS_DUMP_TAP: ./tapout/
+        run: |
+          npm run perltest || true &> /dev/null
+          ls
+          pwd
+      - run: ls $GITHUB_WORKSPACE/tapout/t
+      - run: cat $GITHUB_WORKSPACE/tapout/t/test.t
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const { GITHUB_WORKSPACE } = process.env
+            const globber = await glob.create(GITHUB_WORKSPACE + '/tapout/t/**.t')
+            const files = await globber.glob()
+            tap2gh = require('./tap2gh.js')
+            const res = tap2gh(files)
+            res.annotations.forEach( ann => {
+              console.log(ann.text, ann.info)
+              core.error( ann.text, ann.info )
+            })
+            return { pass: res.pass, fail: res.fail, total: res.total }
+
