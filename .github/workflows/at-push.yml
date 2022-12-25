@@ -7,4 +7,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: ./helloworld/
       with:
-        who-to-greet: Akira
+        who-to-greet: |
+          Akira
+          Tetsuo
+          Yamagata
