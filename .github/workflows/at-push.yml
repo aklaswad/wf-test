@@ -11,7 +11,7 @@ jobs:
           script: |
             console.log({ github, context })
       - run: npm ci
-      - run: npm test:ci
+      - run: npm run test:ci
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
