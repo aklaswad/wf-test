@@ -20,3 +20,8 @@ jobs:
           console.dir('mat',context.matrix)
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
+    - if: always()
+      run: |
+        echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
+        echo "# Summary for Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
