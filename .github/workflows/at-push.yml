@@ -11,7 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/github-script@v6
+      id: create_checks
       with:
+        result-encoding: string
         script: |
           const repo = context.payload.repository
           const res = await github.rest.checks.create({
@@ -22,6 +24,7 @@ jobs:
             status: 'in_progress'
           })
           console.dir(res)
+          return res.data.id
     - uses: ./helloworld
       with:
         who-to-greet: |
@@ -48,7 +51,7 @@ jobs:
           github.rest.checks.update({
             owner: repo.owner.login,
             repo: repo.name,
-            head_sha: context.sha,
+            check_run_id: ${{steps.create_checks.outputs.result}}
             name: 'Choooissu',
             title: 'titliii',
             status: 'completed',
