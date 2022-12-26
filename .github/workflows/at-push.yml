@@ -54,7 +54,7 @@ jobs:
           const payload = {
             owner: repo.owner.login,
             repo: repo.name,
-            check_run_id: check_id,
+            check_run_id: CHECK_ID,
             name: 'Choooissu',
             title: 'titliii',
             status: 'completed',
