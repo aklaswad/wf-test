@@ -33,7 +33,7 @@ jobs:
           Yamagata
     - uses: actions/github-script@v6
       env:
-        check_run_id: ${{steps.create_checks.outputs.result}}
+        CHECK_ID: ${{steps.create_checks.outputs.result}}
       with:
         script: |
           console.dir({ context, github })
@@ -41,7 +41,7 @@ jobs:
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
           const repo = context.payload.repository
-          const { check_id } = process.env
+          const { CHECK_ID } = process.env
           const summary = `
             # this is summary
             - sum
@@ -51,7 +51,7 @@ jobs:
            - ittai
            - dou chigau
           `
-          github.rest.checks.update({
+          const payload = {
             owner: repo.owner.login,
             repo: repo.name,
             check_run_id: check_id,
@@ -64,7 +64,9 @@ jobs:
               summary: summary,
               text: text
             }
-          })
+          }
+          console.dir(payload)
+          github.rest.checks.update(payload)
     - if: always()
       run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
