@@ -17,6 +17,6 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          console.dir(context)
+          console.dir({strategy, matrix})
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
