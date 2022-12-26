@@ -1,4 +1,6 @@
 on: push
+permissions:
+  checks: write
 name: Script Test On Push
 jobs:
   test:
@@ -17,9 +19,12 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          console.dir('mat',context.matrix)
+          console.dir({ context, github })
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
+          /*github.rest.checks.update({
+            owner: 
+          })*/
     - if: always()
       run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
