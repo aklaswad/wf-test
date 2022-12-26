@@ -32,6 +32,8 @@ jobs:
           Tetsuo
           Yamagata
     - uses: actions/github-script@v6
+      env:
+        check_run_id: ${{steps.create_checks.outputs.result}}
       with:
         script: |
           console.dir({ context, github })
@@ -39,6 +41,7 @@ jobs:
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
           const repo = context.payload.repository
+          const { check_id } = process.env
           const summary = `
             # this is summary
             - sum
@@ -51,7 +54,7 @@ jobs:
           github.rest.checks.update({
             owner: repo.owner.login,
             repo: repo.name,
-            check_run_id: ${{steps.create_checks.outputs.result}}
+            check_run_id: check_id,
             name: 'Choooissu',
             title: 'titliii',
             status: 'completed',
