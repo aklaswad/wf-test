@@ -14,7 +14,7 @@ jobs:
       with:
         script: |
           const repo = context.payload.repository
-          const res = github.rest.checks.create({
+          const res = await github.rest.checks.create({
             owner: repo.owner.login,
             repo: repo.name,
             head_sha: context.sha,
@@ -37,7 +37,7 @@ jobs:
           helloworld({core,glob,process})
           const repo = context.payload.repository
           const summary = `
-          # this is summary
+            # this is summary
             - sum
             - ary
           `
@@ -55,8 +55,7 @@ jobs:
             conclusion: 'success',
             output: {
               title: 'ok ok title da',
-
-              summary: summary
+              summary: summary,
               text: text
             }
           })
