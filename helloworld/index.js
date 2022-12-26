@@ -1,2 +1,3 @@
 console.log('BooBoo');
-module.exports = function () { console.log('BaaBee') }
+const yaml = require('yaml')
+module.exports = function () { console.log(yaml.stringify({ aaa: 42, bbb: { c: 42, d: [ 1,2,3,4,5]}})) }
