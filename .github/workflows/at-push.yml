@@ -43,7 +43,6 @@ jobs:
           const [ summary, text ] = helloworld({core,glob,process})
           const repo = context.payload.repository
           const { CHECK_ID } = process.env
-          `
           const payload = {
             owner: repo.owner.login,
             repo: repo.name,
