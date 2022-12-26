@@ -5,9 +5,9 @@ name: Script Test On Push
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        batch: [1, 2]
+    #strategy:
+    #  matrix:
+    #    batch: [1, 2]
     steps:
     - uses: actions/checkout@master
     - uses: ./helloworld
@@ -23,9 +23,19 @@ jobs:
           console.dir(context.payload)
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
-          /*github.rest.checks.update({
-            owner: 
-          })*/
+          const repo = context.payload.repository
+          github.rest.checks.create({
+            owner: repo.owner.login,
+            repo: repo.name,
+            head_sha: context.sha,
+            name: 'Choooissu',
+            title: 'titliii',
+            summary: `# this is
+            summary desu
+             - hoge
+             - moge
+            `
+          })
     - if: always()
       run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
