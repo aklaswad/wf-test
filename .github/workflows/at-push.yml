@@ -8,21 +8,6 @@ jobs:
     #    batch: [1, 2]
     steps:
     - uses: actions/checkout@master
-    - uses: actions/github-script@v6
-      id: create_checks
-      with:
-        result-encoding: string
-        script: |
-          const repo = context.payload.repository
-          const res = await github.rest.checks.create({
-            owner: repo.owner.login,
-            repo: repo.name,
-            head_sha: context.sha,
-            name: 'Choooissu',
-            status: 'in_progress'
-          })
-          console.dir(res)
-          return res.data.id
     - uses: ./helloworld
       with:
         who-to-greet: |
@@ -37,17 +22,9 @@ jobs:
           console.dir({ context, github })
           console.dir(context.payload)
           const helloworld = require('./helloworld')
-          helloworld({core,glob,process})
+          const [ summary, text ] = helloworld({core,glob,process})
           const repo = context.payload.repository
           const { CHECK_ID } = process.env
-          const summary = `
-            # this is summary
-            - sum
-            - ary
-          `
-          const text = `# kottiha text
-           - ittai
-           - dou chigau
           `
           const payload = {
             owner: repo.owner.login,
