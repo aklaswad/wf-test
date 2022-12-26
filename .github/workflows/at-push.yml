@@ -15,4 +15,4 @@ jobs:
       with:
         script: |
           const helloworld = require('./helloworld')
-          helloworld()
+          helloworld({core,glob,process})
