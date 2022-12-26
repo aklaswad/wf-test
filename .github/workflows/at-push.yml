@@ -11,3 +11,8 @@ jobs:
           Akira
           Tetsuo
           Yamagata
+    - uses: actions/github-scripts
+      with:
+        script: |
+          const helloworld = require('./helloworld')
+          helloworld()
