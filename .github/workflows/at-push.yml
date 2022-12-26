@@ -10,6 +10,18 @@ jobs:
     #    batch: [1, 2]
     steps:
     - uses: actions/checkout@master
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const repo = context.payload.repository
+          const res = github.rest.checks.create({
+            owner: repo.owner.login,
+            repo: repo.name,
+            head_sha: context.sha,
+            name: 'Choooissu',
+            status: 'in_progress'
+          })
+          console.dir(res)
     - uses: ./helloworld
       with:
         who-to-greet: |
@@ -24,17 +36,29 @@ jobs:
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
           const repo = context.payload.repository
-          github.rest.checks.create({
+          const summary = `
+          # this is summary
+            - sum
+            - ary
+          `
+          const text = `# kottiha text
+           - ittai
+           - dou chigau
+          `
+          github.rest.checks.update({
             owner: repo.owner.login,
             repo: repo.name,
             head_sha: context.sha,
             name: 'Choooissu',
             title: 'titliii',
-            summary: `# this is
-            summary desu
-             - hoge
-             - moge
-            `
+            status: 'completed',
+            conclusion: 'success',
+            output: {
+              title: 'ok ok title da',
+
+              summary: summary
+              text: text
+            }
           })
     - if: always()
       run: |
