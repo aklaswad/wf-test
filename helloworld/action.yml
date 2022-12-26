@@ -18,3 +18,4 @@ runs:
         cache: npm
         cache-dependency-path: helloworld/package-lock.json
     - run: cd helloworld && npm ci
+      shell: bash
