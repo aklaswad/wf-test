@@ -8,6 +8,24 @@ jobs:
     #    batch: [1, 2]
     steps:
     - uses: actions/checkout@master
+    - uses: actions/github-script@v6
+      if: 
+      id: create_checks
+      with:
+        result-encoding: string
+        script: |
+          const repo = context.payload.repository
+          /*
+          const res = await github.rest.checks.create({
+            owner: repo.owner.login,
+            repo: repo.name,
+            head_sha: context.sha,
+            name: 'Choooissu',
+            status: 'in_progress'
+          })
+          console.dir(res)
+          return res.data.id
+          */
     - uses: ./helloworld
       with:
         who-to-greet: |
@@ -25,12 +43,14 @@ jobs:
           const [ summary, text ] = helloworld({core,glob,process})
           const repo = context.payload.repository
           const { CHECK_ID } = process.env
+          `
           const payload = {
             owner: repo.owner.login,
             repo: repo.name,
-            check_run_id: CHECK_ID,
+            //check_run_id: CHECK_ID,
             name: 'Choooissu',
             title: 'titliii',
+            head_sha: context.sha,
             status: 'completed',
             conclusion: 'success',
             output: {
@@ -40,7 +60,7 @@ jobs:
             }
           }
           console.dir(payload)
-          github.rest.checks.update(payload)
+          github.rest.checks.create(payload)
     - if: always()
       run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
