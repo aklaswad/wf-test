@@ -3,6 +3,9 @@ name: Script Test On Push
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        batch: [1, 2]
     steps:
     - uses: actions/checkout@master
     - uses: ./helloworld
@@ -14,5 +17,6 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
+          console.dir(context)
           const helloworld = require('./helloworld')
           helloworld({core,glob,process})
