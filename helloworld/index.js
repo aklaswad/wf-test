@@ -62,7 +62,7 @@ function bugs () {
 ':honeybee:',
 ':beetle:',
 ':lady_beetle:',
-':cricket
+':cricket:',
 ':cockroach:',
 ':spider:',
 ':spider_web:',
@@ -71,6 +71,7 @@ function bugs () {
 ':fly:',
 ':worm:',
 ':microbe:',
+':orangutan:',
 ]
   return bugs[ Math.floor((Math.random() * bugs.length)) ]
 }
