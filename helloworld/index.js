@@ -57,7 +57,7 @@ function renderSummary (data, context) {
 
 | ok | suite | pass | fail | total |
 |----|-------|------|------|-------|` + data.map( d => `
-|${d.ok}|${d.name}|${d.pass}|${d.fail}|${d.total}|`
+|${d.ok}|${d.name}|${d.pass}|${d.fail}|${d.total}|`)
 
 return summary
 }
