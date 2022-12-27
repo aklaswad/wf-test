@@ -79,10 +79,13 @@ function bugs () {
 
 // data must be an array of non-nested objects.
 async function renderSummary (data, context, github) {
-  /*const repo = context.payload.repository
-  const run = await github.rest.actions.getWorkflowRun({
-    
-  })*/
+  const repo = context.payload.repository
+  const jobs = await github.rest.actions.listJobsForWorkflowRun({
+    owner: owner.login,
+    repo: repo.name,
+    run_id: context.runId
+  })
+  console.dir(jobs)
   const t = aggregate(data)
   t.name = '**Total**'
   const summary = `

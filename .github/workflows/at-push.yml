@@ -35,8 +35,8 @@ jobs:
         CHECK_ID: ${{steps.create_checks.outputs.result}}
       with:
         script: |
-          console.dir({ context, github })
-          console.dir(context.payload)
+          //console.dir({ context, github })
+          //console.dir(context.payload)
           const helloworld = require('./helloworld')
           const [ summary, text ] = await helloworld({ context, github })
           const repo = context.payload.repository
