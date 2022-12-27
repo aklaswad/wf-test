@@ -28,7 +28,7 @@ const data = [
   },
   {
     name: "Frontend Lint",
-    pass: 4,
+    pass: 0,
     fail: 0,
     ok: true,
   }
