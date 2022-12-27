@@ -85,10 +85,10 @@ function renderSummary (data, context) {
   const summary = `
 # Test Result for ${context.sha.substr(0,8)}
 
-| ok | suite | pass | fail | total |
-|----|-------|------|------|-------|` + data.map( d => `
-|${d.ok ? ':white_check_mark:' : bugs()}|${d.name}|${d.pass}|${d.fail}|${d.total}|`) + `
-|${t.ok}|${t.name}|${t.pass}|${t.fail}|${t.total}|`
+| suite | ok | pass | fail | total |
+|-------|----|------|------|-------|` + data.map( d => `
+|<br>${d.name}<br>|${d.ok ? ':white_check_mark:' : bugs()}|${d.pass}|**${d.fail}**|${d.total}|`) + `
+|${t.name}|${d.ok ? ':white_check_mark:' : bugs()}|${t.pass}|**${t.fail}**|${t.total}|`
 return summary
 }
 

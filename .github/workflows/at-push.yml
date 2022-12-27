@@ -7,6 +7,7 @@ jobs:
     #  matrix:
     #    batch: [1, 2]
     steps:
+    - run: whoami
     - uses: actions/checkout@master
     - uses: actions/github-script@v6
       id: create_checks
