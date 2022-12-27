@@ -3,9 +3,9 @@ name: Script Test On Push
 jobs:
   test:
     runs-on: ubuntu-latest
-    #strategy:
-    #  matrix:
-    #    batch: [1, 2]
+    strategy:
+      matrix:
+        batch: ['foo', 'bar']
     steps:
     - run: whoami
     - uses: actions/checkout@master
