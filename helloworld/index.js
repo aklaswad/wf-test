@@ -88,7 +88,7 @@ function renderSummary (data, context) {
 | suite | ok | pass | fail | total |
 |-------|----|------|------|-------|` + data.map( d => `
 |<br>${d.name}<br>|${d.ok ? ':white_check_mark:' : bugs()}|${d.pass}|**${d.fail}**|${d.total}|`) + `
-|${t.name}|${d.ok ? ':white_check_mark:' : bugs()}|${t.pass}|**${t.fail}**|${t.total}|`
+|${t.name}|${t.ok ? ':white_check_mark:' : bugs()}|${t.pass}|**${t.fail}**|${t.total}|`
 return summary
 }
 
