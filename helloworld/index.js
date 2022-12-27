@@ -50,16 +50,23 @@ const data = [
 */
 // data must be an array of non-nested objects.
 // Use ultra micro template.
-function renderSummary (data) {
+function renderSummary (data, context) {
 
+  const summary = `
+# Test Result for ${context.sha.substr(0,8)}
+
+| ok | suite | pass | fail | total |
+|----|-------|------|------|-------|` + data.map( d => `
+|${d.ok}|${d.name}|${d.pass}|${d.fail}|${d.total}|`
+
+return summary
 }
 
 
 module.exports = function (opts) {
-  return [`# summary
- - hoge
- - moge
-  `, `# Title
+  return [
+  renderSummary(data),
+  `# Title
   hoge moge is foo bar
 `]
 }
