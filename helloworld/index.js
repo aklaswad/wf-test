@@ -96,9 +96,8 @@ return summary
 }
 
 
-module.exports = function (opts) {
-  return [
-  await renderSummary(data, opts.context, opts.github),
+module.exports = async function (opts) {
+  return [ await renderSummary(data, opts.context, opts.github),
   `# Title
   hoge moge is foo bar
 `]
