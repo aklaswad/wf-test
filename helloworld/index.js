@@ -86,6 +86,10 @@ async function renderSummary (data, context, github) {
     run_id: context.runId
   })
   console.dir(run.data)
+  let prLink = ''
+  if ( run.data.pull_requests ) {
+    prLink = '[details](' + repo.html_url + '/pull/' + run.data.pull_requests[0].number + '/commits/' + context.sha + ')'
+  }
   const jobs = await github.rest.actions.listJobsForWorkflowRun({
     owner: repo.owner.login,
     repo: repo.name,
@@ -100,7 +104,11 @@ async function renderSummary (data, context, github) {
 | suite | ok | pass | fail | total |
 |-------|----|------|------|-------|` + data.map( d => `
 |<br>${d.name}<br>| ${d.ok ? ':white_check_mark:' : ':x:'}|${d.pass}:heavy_check_mark:|**${d.fail}${d.fail ? ':x:' : '' }**|${d.total}|`) + `
-|${t.name}        | ${t.ok ? ':white_check_mark:' : ':x:'}|${t.pass}:heavy_check_mark:|**${t.fail}${t.fail ? ':x:' : '' }**|${t.total}|`
+|${t.name}        | ${t.ok ? ':white_check_mark:' : ':x:'}|${t.pass}:heavy_check_mark:|**${t.fail}${t.fail ? ':x:' : '' }**|${t.total}|
+
+${prLink}
+
+`
 return summary
 }
 
