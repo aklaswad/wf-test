@@ -65,7 +65,7 @@ return summary
 
 module.exports = function (opts) {
   return [
-  renderSummary(data),
+  renderSummary(data, opts.context),
   `# Title
   hoge moge is foo bar
 `]
