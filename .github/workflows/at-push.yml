@@ -56,7 +56,7 @@ jobs:
             }
           }
           console.dir(payload)
-          const res = github.rest.checks.update(payload)
+          const res = await github.rest.checks.update(payload)
           console.dir(res)
     - if: always()
       run: |
