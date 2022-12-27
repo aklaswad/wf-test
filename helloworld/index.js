@@ -81,7 +81,7 @@ function bugs () {
 async function renderSummary (data, context, github) {
   const repo = context.payload.repository
   const jobs = await github.rest.actions.listJobsForWorkflowRun({
-    owner: owner.login,
+    owner: repo.owner.login,
     repo: repo.name,
     run_id: context.runId
   })
