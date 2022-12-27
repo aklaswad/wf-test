@@ -38,7 +38,7 @@ jobs:
           console.dir({ context, github })
           console.dir(context.payload)
           const helloworld = require('./helloworld')
-          const [ summary, text ] = helloworld({ context })
+          const [ summary, text ] = helloworld({ context, github })
           const repo = context.payload.repository
           const { CHECK_ID } = process.env
           const payload = {

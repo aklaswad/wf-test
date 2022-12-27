@@ -78,8 +78,11 @@ function bugs () {
 }
 
 // data must be an array of non-nested objects.
-// Use ultra micro template.
-function renderSummary (data, context) {
+async function renderSummary (data, context, github) {
+  /*const repo = context.payload.repository
+  const run = await github.rest.actions.getWorkflowRun({
+    
+  })*/
   const t = aggregate(data)
   t.name = '**Total**'
   const summary = `
@@ -87,15 +90,15 @@ function renderSummary (data, context) {
 
 | suite | ok | pass | fail | total |
 |-------|----|------|------|-------|` + data.map( d => `
-|<br>${d.name}<br>|${d.ok ? ':white_check_mark:' : bugs()}|${d.pass}|**${d.fail}**|${d.total}|`) + `
-|${t.name}|${t.ok ? ':white_check_mark:' : bugs()}|${t.pass}|**${t.fail}**|${t.total}|`
+|<br>${d.name}<br>| ${d.ok ? ':white_check_mark:' : ':x:'}|${d.pass}:heavy_check_mark:|**${d.fail}${d.fail ? ':x:' : '' }**|${d.total}|`) + `
+|${t.name}        | ${t.ok ? ':white_check_mark:' : ':x:'}|${t.pass}:heavy_check_mark:|**${t.fail}${t.fail ? ':x:' : '' }**|${t.total}|`
 return summary
 }
 
 
 module.exports = function (opts) {
   return [
-  renderSummary(data, opts.context),
+  await renderSummary(data, opts.context, opts.github),
   `# Title
   hoge moge is foo bar
 `]
