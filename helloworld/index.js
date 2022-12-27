@@ -55,6 +55,7 @@ function aggregate (summaries) {
     numFiles: 0,
     annotations: []
   })
+  return result
 }
 
 function bugs () {
