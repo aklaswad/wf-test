@@ -1,0 +1,74 @@
+{
+  "on": "push",
+  "name": "Push with JSON",
+  "jobs": {
+    "log": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v3"
+        },
+        {
+          "uses": "actions/github-script@v6",
+          "id": "dump",
+          "with": {
+            "script": "console.log({ github, context })\n"
+          }
+        },
+        {
+          "run": "echo \"::error file=package.json,line=2,col=5,endColumn=7,title=I don't like this title::Missing semicolon%0Afoobar%0D%0Ayeaaa?\"\n"
+        },
+        {
+          "run": "npm ci"
+        },
+        {
+          "run": "npm test"
+        }
+      ]
+    },
+    "perltest": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@v3"
+        },
+        {
+          "uses": "actions/setup-node@v3",
+          "with": {
+            "node-version": 18,
+            "cache": "npm"
+          }
+        },
+        {
+          "run": "npm ci"
+        },
+        {
+          "uses": "shogo82148/actions-setup-perl@v1",
+          "with": {
+            "perl-version": "5.34",
+            "install-modules-with": "cpanm",
+            "install-modules-args": "--with-develop --with-configure"
+          }
+        },
+        {
+          "env": {
+            "PERL_TEST_HARNESS_DUMP_TAP": "./tapout/"
+          },
+          "run": "npm run perltest || true &> /dev/null\nls\npwd\n"
+        },
+        {
+          "run": "ls $GITHUB_WORKSPACE/tapout/t"
+        },
+        {
+          "run": "cat $GITHUB_WORKSPACE/tapout/t/test.t"
+        },
+        {
+          "uses": "actions/github-script@v6",
+          "with": {
+            "script": "const { GITHUB_WORKSPACE } = process.env\nconst globber = await glob.create(GITHUB_WORKSPACE + '/tapout/t/**.t')\nconst files = await globber.glob()\ntap2gh = require('./tap2gh.js')\nconst res = tap2gh(files)\nres.annotations.forEach( ann => {\n  console.log(ann.text, ann.info)\n  core.error( ann.text, ann.info )\n})\nreturn { pass: res.pass, fail: res.fail, total: res.total }\n"
+          }
+        }
+      ]
+    }
+  }
+}
