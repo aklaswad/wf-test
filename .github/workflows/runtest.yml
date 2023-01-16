@@ -1,0 +1,9 @@
+name: Run test
+
+on: puth
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: test/test.sh
