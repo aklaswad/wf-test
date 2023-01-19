@@ -7,3 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: test/test.sh
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.dir(context)
+            console.dir(context.payload)
