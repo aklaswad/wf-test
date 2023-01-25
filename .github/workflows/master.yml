@@ -13,7 +13,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          title="$( time | md5sum | cut -c -5)"
+          title="$( date | md5sum | cut -c -5)"
           echo "pr-title=${title}" >> "$GITHUB_OUTPUT"
           git checkout -b "$title"
           git config user.name "aklaswad (bot)"
