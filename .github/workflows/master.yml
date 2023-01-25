@@ -22,7 +22,7 @@ jobs:
           git add "${title}.txt"
           git commit -m "commit for $title"
           git push origin "$title"
-          gh pr create --fill -B "Please merge me $title"
+          gh pr create -B main -t "Please merge me $title"
       #- name: Create PR
       #  env:
       #    BRANCH: ${{ steps.pr-name.results.pr-title }}
