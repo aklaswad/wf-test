@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_pr:
+    name: Build PR
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Name
+        id: pr-name
+        run: |
+          title=$(date | md5sum | cut -c -5)"
+          echo "pr-title=${title}" >> "$GITHUB_OUTPUT"
+          git checkout -b "$title"
+          git config user.name "aklaswad (bot)"
+          git config user.email "aklaswad+bot@gmail.com"
+          touch "${title}.txt"
+          git add "${title}.txt"
+          git commit -m "commit for $title"
+          git push origin "$title"
+          gh pr create --fill -B "$title"
+      #- name: Create PR
+      #  env:
+      #    BRANCH: ${{ steps.pr-name.results.pr-title }}
+      #  with:
+      #    script: |
+      #      const { BRANCH } = process.env
+      #      github.rest.
+
+
