@@ -4,6 +4,7 @@ on:
       - main
 jobs:
   build_pr:
+    runs-on: ubuntu-latest
     name: Build PR
     steps:
       - uses: actions/checkout@v3
