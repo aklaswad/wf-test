@@ -4,6 +4,8 @@ jobs:
   parseOn:
     name: Comment Parser
     runs-on: ubuntu-latest
+    outputs:
+      action: ${{ env.action }}
     env:
       body: ${{ github.event.comment.body }}
     steps:
@@ -11,10 +13,25 @@ jobs:
         with:
           script: |
             console.dir( context, { depth: null })
-      - if: |
-          startsWith( env.body, '!deploy')
-          || startsWith( env.body, '!dply' )
-        run: echo "deploy"
+      - if: startsWith( env.body, '!deploy')
+        run: echo "action=deploy" >> $GITHUB_ENV
+      - if: startsWith( env.body, '!test')
+        run: echo "action=test" >> $GITHUB_ENV
+      - run: echo "Action is " $the_action
+        env:
+          the_action: ${{ env.action }}
+  deploy:
+    needs: parseOn
+    runs-on: ubuntu-latest
+    if: needs.parseOn.outputs.action == 'deploy'
+    steps:
+      - run: echo "deploy!"
+  test:
+    needs: parseOn
+    runs-on: ubuntu-latest
+    if: needs.parseOn.outputs.action == 'test'
+    steps:
+      - run: echo "test..."
   parse:
     runs-on: ubuntu-latest
     outputs:
