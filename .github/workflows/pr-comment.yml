@@ -17,7 +17,10 @@ jobs:
         run: echo "action=deploy" >> $GITHUB_ENV
       - if: startsWith( env.body, '!test')
         run: echo "action=test" >> $GITHUB_ENV
+      - run: echo "No action"
+        if: ${{ ! env.action }}
       - run: echo "Action is " $the_action
+        if: env.action
         env:
           the_action: ${{ env.action }}
   deploy:
