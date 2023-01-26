@@ -2,6 +2,7 @@ on: issue_comment
 name: comment test
 jobs:
   parseOn:
+    name: Comment Parser
     runs-on: ubuntu-latest
     env:
       body: ${{ github.event.comment.body }}
