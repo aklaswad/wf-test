@@ -11,8 +11,8 @@ jobs:
         with:
           script: |
             console.dir( context, { depth: null })
-      - if: startsWith( context.env.body, '!deploy')
-        run: echo "deploy"
+     # - if: startsWith( context.env.body, '!deploy')
+     #   run: echo "deploy"
   parse:
     runs-on: ubuntu-latest
     outputs:
