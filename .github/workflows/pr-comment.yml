@@ -1,6 +1,13 @@
 on: issue_comment
 name: comment test
 jobs:
+  parseOn:
+    runs-on: ubuntu-latest
+    env:
+      body: ${{ github.event.comment.body }}
+    steps:
+      - if: startsWith( github.event.comment.body, '!deploy')
+      - run: echo "deploy"
   parse:
     runs-on: ubuntu-latest
     outputs:
