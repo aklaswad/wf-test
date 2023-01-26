@@ -7,7 +7,11 @@ jobs:
     env:
       body: ${{ github.event.comment.body }}
     steps:
-      - if: startsWith( github.event.comment.body, '!deploy')
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.dir( context, { depth: null })
+      - if: startsWith( context.env.body, '!deploy')
         run: echo "deploy"
   parse:
     runs-on: ubuntu-latest
