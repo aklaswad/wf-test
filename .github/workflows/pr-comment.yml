@@ -42,7 +42,9 @@ jobs:
             github.rest.repos.createDeployment({
               owner: 'aklaswad',
               repo: 'wf-test',
-              ref: 'main'
+              ref: 'main',
+              environment: 'testing',
+              description: 'Deploy from comment'
 
             })
   test:
