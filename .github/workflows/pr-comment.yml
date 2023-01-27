@@ -39,7 +39,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            github.rest.repos.createDeployment({
+            const res = await github.rest.repos.createDeployment({
               owner: 'aklaswad',
               repo: 'wf-test',
               ref: 'main',
@@ -47,6 +47,7 @@ jobs:
               description: 'Deploy from comment'
 
             })
+            console.dir(res, { depth: null })
   test:
     needs: parseOn
     runs-on: ubuntu-latest
