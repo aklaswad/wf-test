@@ -24,8 +24,9 @@ jobs:
       - run: echo "No action"
         if: ${{ 'none' == env.action }}
 
-      - run: echo "Action is " $the_action
+      - run: echo "has Action"
         if: ${{ 'none' != env.action }}
+      - run: echo "Action is " $the_action
         env:
           the_action: ${{ env.action }}
       - run: echo "hogeee"
