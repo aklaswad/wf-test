@@ -28,6 +28,8 @@ jobs:
         if: ${{ 'none' != env.action }}
         env:
           the_action: ${{ env.action }}
+      - run: echo "hogeee"
+        name: final
   deploy:
     needs: parseOn
     runs-on: ubuntu-latest
