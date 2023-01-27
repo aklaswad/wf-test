@@ -36,7 +36,7 @@ jobs:
     if: needs.parseOn.outputs.action == 'deploy'
     steps:
       - run: echo "deploy!"
-      - uses: actions/github-script
+      - uses: actions/github-script@v6
         with:
           script: |
             github.repos.createDeployment({
