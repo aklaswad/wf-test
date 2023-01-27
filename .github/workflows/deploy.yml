@@ -1,0 +1,11 @@
+name: deploy
+on: 
+  # https://developer.github.com/v3/repos/deployments/#update-a-deployment
+  deployment
+jobs:
+  deploy:
+    name: DEPLOY ${{ github.event.deployment.environment }} ${{ github.event.deployment.task }}
+    runs-on: ubuntu-18.04
+    steps:
+    - name: deploy
+      run:  echo "Execute the deproy script here."
