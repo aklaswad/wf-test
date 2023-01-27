@@ -1,5 +1,7 @@
 name: deploy
-on: deployment
+on:
+  deployment
+  deployment_status
 jobs:
   deploy:
     name: DEPLOY ${{ github.event.deployment.environment }} ${{ github.event.deployment.task }}
