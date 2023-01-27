@@ -36,6 +36,15 @@ jobs:
     if: needs.parseOn.outputs.action == 'deploy'
     steps:
       - run: echo "deploy!"
+      - uses: actions/github-script
+        with:
+          script: |
+            github.repos.createDeployment({
+              owner: 'aklaswad',
+              repo: 'wf-test',
+              ref: 'main'
+
+            })
   test:
     needs: parseOn
     runs-on: ubuntu-latest
