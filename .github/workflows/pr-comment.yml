@@ -1,5 +1,5 @@
 on: issue_comment
-name: comment test
+name: comment run
 jobs:
   parseOn:
     name: Comment Parser
@@ -51,55 +51,3 @@ jobs:
     if: needs.parseOn.outputs.action == 'test'
     steps:
       - run: echo "test..."
-  parse:
-    runs-on: ubuntu-latest
-    outputs:
-      deploy: ${{ ! fromJSON( steps.parse.outputs.result ).ignore }}
-      command: ${{ fromJSON( steps.parse.outputs.result ).command }}
-      selector: ${{ fromJSON( steps.parse.outputs.result ).selector }}
-      token: ${{ fromJSON( steps.parse.outputs.result ).token }}
-      runner: ${{ fromJSON( steps.parse.outputs.result ).runner }}
-    steps:
-      - uses: actions/github-script@v6
-        id: parse
-        name: Parse command from issue comment
-        with:
-          script: |
-            const comment = context.payload.comment.body
-            if ( ! /^!/.test(comment) ) {
-              // It's not command.
-              return { ignore: true, runner: 'ubuntu-latest' }
-            }
-            const [ command, token ] = comment.substr(1).split(':')
-            if ( command === 'alt-deploy-to-staging' ) {
-              return {
-                selector: 'deploy-staging',
-                command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-staging',
-                token: token,
-                runner: 'ubuntu-latest'
-              }
-            }
-            return {
-              selector: 'deploy-legacy',
-              command: 'cd $GITHUB_WORKSPACE && pwd && echo I am $GITHUB_WORKSPACE deploy-leg',
-              token: token,
-              runner: 'ubuntu-latest',
-            }
-  deploy-staging:
-    runs-on: ${{ needs.parse.outputs.runner }}
-    needs: parse
-    if: needs.parse.outputs.deploy
-    steps:
-      - run: ${{ needs.parse.outputs.command }}
-  deploy-legacy:
-    runs-on: ${{ needs.parse.outputs.runner }}
-    needs: parse
-    if: needs.parse.outputs.deploy
-    steps:
-      - run: ${{ needs.parse.outputs.command }}
-  dump:
-    runs-on: ubuntu-latest
-    needs: parse
-    steps:
-      - run: echo ${{needs.parse.outputs.command}}  ${{needs.parse.outputs.token}} got
-
