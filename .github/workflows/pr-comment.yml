@@ -8,6 +8,7 @@ jobs:
       action: ${{ env.action }}
     env:
       body: ${{ github.event.comment.body }}
+      action: none
     steps:
       - uses: actions/github-script@v6
         with:
@@ -21,10 +22,10 @@ jobs:
         run: echo "action=test" >> $GITHUB_ENV
 
       - run: echo "No action"
-        if: ${{ '' == env.action }}
+        if: ${{ 'none' == env.action }}
 
       - run: echo "Action is " $the_action
-        if: ${{ '' != env.action }}
+        if: ${{ 'none' != env.action }}
         env:
           the_action: ${{ env.action }}
   deploy:
