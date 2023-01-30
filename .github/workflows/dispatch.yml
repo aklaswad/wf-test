@@ -18,6 +18,7 @@ on:
 jobs:
   howtheywork:
     # debug
+    runs-on: ubuntu-latest
     name: 'Check workflow'
     env:
       pr-ref: ${{ inputs.pr-ref }}
