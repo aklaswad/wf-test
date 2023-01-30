@@ -54,24 +54,10 @@ jobs:
     needs: parseOn
     runs-on: ubuntu-latest
     if: needs.parseOn.outputs.action == 'deploy'
-    steps:
-      - run: echo "deploy!"
-      - uses: ./.github/workflows/dispatch.yml
-        with:
-          ref_name: main
-        name: Run dispatch
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            const res = await github.rest.repos.createDeployment({
-              owner: 'aklaswad',
-              repo: 'wf-test',
-              ref: 'main',
-              environment: 'testing',
-              description: 'Deploy from comment'
-
-            })
-            console.dir(res, { depth: null })
+    uses: ./.github/workflows/dispatch.yml
+      with:
+        ref_name: main
+      name: Run dispatch
   test:
     needs: parseOn
     runs-on: ubuntu-latest
