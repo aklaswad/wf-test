@@ -56,7 +56,7 @@ jobs:
     if: needs.parseOn.outputs.action == 'deploy'
     steps:
       - run: echo "deploy!"
-      - uses: .github/workflows/dispatch.yml
+      - uses: .github/workflows/dispatch.yml@main
         name: Run dispatch
       - uses: actions/github-script@v6
         with:
