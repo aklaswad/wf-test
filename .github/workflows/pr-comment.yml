@@ -25,7 +25,8 @@ jobs:
             })
             console.dir(pr, { depth: null })
       - run: |
-          echo "ppull ${{ toJSON(github.event.issue.pull_request) }}"
+          echo "ppull ${{ toJSON(github) }}"
+        name: Dump
       - if: startsWith( env.body, '!deploy')
         run: echo "action=deploy" >> $GITHUB_ENV
 
