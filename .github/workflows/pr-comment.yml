@@ -52,12 +52,10 @@ jobs:
         name: final
   deploy:
     needs: parseOn
-    runs-on: ubuntu-latest
     if: needs.parseOn.outputs.action == 'deploy'
     uses: ./.github/workflows/dispatch.yml
       with:
         ref_name: main
-      name: Run dispatch
   test:
     needs: parseOn
     runs-on: ubuntu-latest
