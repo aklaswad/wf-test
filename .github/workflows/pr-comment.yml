@@ -54,8 +54,8 @@ jobs:
     needs: parseOn
     if: needs.parseOn.outputs.action == 'deploy'
     uses: ./.github/workflows/dispatch.yml
-      with:
-        ref_name: main
+    with:
+      ref_name: main
   test:
     needs: parseOn
     runs-on: ubuntu-latest
