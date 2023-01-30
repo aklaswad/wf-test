@@ -15,9 +15,7 @@ jobs:
             console.dir( context, { depth: null })
       - run: echo "greeting ${{ github.event.comment.user.login }}"
       - run: |
-          echo "ppull ${{ github.event.issue.pull_request }}"
-          echo "ppull ${{ github.event.issue.pull_request.sha }}"
-          echo "ppull ${{ github.event.issue.pull_request.head.label }}"
+          echo "ppull ${{ toJSON(github.event.issue.pull_request) }}"
       - if: startsWith( env.body, '!deploy')
         run: echo "action=deploy" >> $GITHUB_ENV
 
