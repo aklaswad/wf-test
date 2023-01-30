@@ -28,6 +28,15 @@ jobs:
       - run: echo "Action is " $the_action
         env:
           the_action: ${{ env.action }}
+      - run: echo "action=" >> $GITHUB_ENV
+      - run: echo "No action 2"
+        if: ${{ ! env.action }}
+
+      - run: echo "has Action 2"
+        if: ${{ env.action }}
+      - run: echo "Action is " $the_action
+        env:
+          the_action: ${{ env.action }}
       - run: echo "hogeee"
         name: final
   deploy:
