@@ -25,6 +25,6 @@ jobs:
       - if: ${{ ! env.pr-ref }}
         name: Fetch PR ref
         run: echo ${{ toJSON( github ) }}
-      - run: echo "hello"
+      - run: echo "hello2"
 
 
