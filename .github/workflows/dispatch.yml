@@ -20,7 +20,7 @@ jobs:
       ref_name: ${{ inputs.ref_name }}
     steps:
       - if: ${{ ! env.ref_name }}
-        run: echo "pr-ref=${{ github.ref_name }}" >> $GITHUB_ENV
+        run: echo "ref_name=${{ github.ref_name }}" >> $GITHUB_ENV
       - run: echo "hello2 ${{ env.ref_name }}"
 
 
