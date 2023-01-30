@@ -4,7 +4,7 @@ on:
 
   workflow_call:
     inputs:
-      pr-ref:
+      ref_name:
         required: true
         type: string
 
@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Check workflow'
     env:
-      pr-ref: ${{ inputs.pr-ref }}
+      ref_name: ${{ inputs.ref_name }}
     steps:
-      - if: ${{ ! env.pr_ref }}
+      - if: ${{ ! env.ref_name }}
         run: echo "pr-ref=${{ github.ref_name }}" >> $GITHUB_ENV
-      - run: echo "hello2 ${{ env.pr-ref }}"
+      - run: echo "hello2 ${{ env.ref_name }}"
 
 
