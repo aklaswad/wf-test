@@ -20,7 +20,7 @@ jobs:
       pr-ref: ${{ inputs.pr-ref }}
     steps:
       - if: ${{ ! env.pr-ref }}
-        run: echo "pr-ref=${{ github.event.ref-name }}" >> $GITHUB_ENV
+        run: echo "pr-ref=${{ github.event.ref_name }}" >> $GITHUB_ENV
       - run: echo "hello2 ${{ env.pr-ref }}"
 
 
