@@ -57,6 +57,8 @@ jobs:
     steps:
       - run: echo "deploy!"
       - uses: ./.github/workflows/dispatch.yml
+        with:
+          ref_name: main
         name: Run dispatch
       - uses: actions/github-script@v6
         with:
