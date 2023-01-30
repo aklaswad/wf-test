@@ -22,5 +22,6 @@ jobs:
       - if: ${{ ! env.ref_name }}
         run: echo "ref_name=${{ github.ref_name }}" >> $GITHUB_ENV
       - run: echo "hello3 ${{ env.ref_name }}"
+      - run: echo "${{ toJSON( github ) }}"
 
 
