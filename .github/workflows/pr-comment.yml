@@ -13,7 +13,7 @@ jobs:
         with:
           script: |
             console.dir( context, { depth: null })
-      - run: echo "greeting ${{ github.event.comment.author.login }}"
+      - run: echo "greeting ${{ github.event.comment.user.login }}"
       - if: startsWith( env.body, '!deploy')
         run: echo "action=deploy" >> $GITHUB_ENV
 
