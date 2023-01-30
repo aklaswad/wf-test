@@ -1,10 +1,6 @@
 name: dispatch3
 on:
   workflow_dispatch:
-    inputs:
-      pr-ref:
-        required: true
-        type: string
 
   workflow_call:
     inputs:
@@ -23,8 +19,8 @@ jobs:
     env:
       pr-ref: ${{ inputs.pr-ref }}
     steps:
-      - name: Fetch PR ref
-        run: echo "${{ toJSON( github ) }}"
-      - run: echo "hello2"
+      - if: ${{ ! env.pr-ref }}
+        run: echo "pr-ref=${{ github.event.ref-name }}" >> $GITHUB_ENV
+      - run: echo "hello2 ${{ env.pr-ref }}"
 
 
