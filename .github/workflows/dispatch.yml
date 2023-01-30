@@ -1,33 +1,30 @@
-name: dispatch2
+name: dispatch3
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
+      pr-ref:
         required: true
-        default: 'warning' 
-        type: choice
-        options:
-        - info
-        - warning
-        - debug 
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true 
-        type: boolean 
-      tags:
-        description: 'Test scenario tags'
-        required: true 
         type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true 
+
+  workflow_call:
+    inputs:
+      pr-ref:
+        required: true
+        type: string
+
+  # For debug purpose. Remove before merge this.
+  push:
 
 jobs:
-  print-tag:
-    runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
+  howtheywork:
+    # debug
+    name: 'Check workflow'
+    env:
+      pr-ref: ${{ inputs.pr-ref }}
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+      - if: ${{ ! env.pr-ref }}
+        name: Fetch PR ref
+        run: echo ${{ toJSON( github ) }}
+      - run: echo "hello"
+
+
