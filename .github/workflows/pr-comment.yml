@@ -14,6 +14,16 @@ jobs:
           script: |
             console.dir( context, { depth: null })
       - run: echo "greeting ${{ github.event.comment.user.login }}"
+      - uses: actions/github-script@v6
+        id: pr-info
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.issue.number
+            })
+            console.dir(pr, { depth: null })
       - run: |
           echo "ppull ${{ toJSON(github.event.issue.pull_request) }}"
       - if: startsWith( env.body, '!deploy')
@@ -30,7 +40,6 @@ jobs:
       - run: echo "Action is " $the_action
         env:
           the_action: ${{ env.action }}
-      - run: echo "action=" >> $GITHUB_ENV
       - run: echo "No action 2"
         if: ${{ ! env.action }}
 
