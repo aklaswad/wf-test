@@ -82,7 +82,7 @@ jobs:
           echo "${{ github.event.comment.body }}" >> comments.txt
           git add comments.txt
           git config user.name "${{ github.event.comment.user.login }}"
-          git config user.name "mail@aklaswad.com"
+          git config user.email "aklaswad@gmail.com"
           git commit -m "from comment"
           git push origin ${{ needs.parse.outputs.ref }}
 
