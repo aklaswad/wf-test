@@ -66,14 +66,14 @@ jobs:
             core.setOutput('sha', pr.data.head.sha)
   deploy:
     needs: parse
-    if: needs.parseOn.outputs.action == 'deploy'
+    if: needs.parse.outputs.action == 'deploy'
     uses: ./.github/workflows/dispatch.yml
     with:
       ref_name: main
   test:
     needs: parse
     runs-on: ubuntu-latest
-    if: needs.parseOn.outputs.action == 'test'
+    if: needs.parse.outputs.action == 'test'
     steps:
       - run: |
           echo "${{ github.event.comment.body }}" >> comments.txt
