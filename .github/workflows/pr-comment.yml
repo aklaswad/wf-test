@@ -1,7 +1,5 @@
 on: issue_comment
 name: comment run
-permissions:
-  actions: write
 jobs:
   parse:
     name: Comment Parser
