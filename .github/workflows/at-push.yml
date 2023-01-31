@@ -8,6 +8,7 @@ jobs:
         batch: ['foo', 'bar']
     steps:
     - run: whoami
+    - run: echo "refname ${{ github.ref_name }}"
     - uses: actions/checkout@master
     - uses: actions/github-script@v6
       id: create_checks
