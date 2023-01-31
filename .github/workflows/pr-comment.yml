@@ -1,11 +1,12 @@
 on: issue_comment
 name: comment run
 jobs:
-  parseOn:
+  parse:
     name: Comment Parser
     runs-on: ubuntu-latest
     outputs:
       action: ${{ env.action }}
+      ref: ${{ steps.check-pr.outputs.ref }}
     env:
       body: ${{ github.event.comment.body }}
     steps:
@@ -51,15 +52,34 @@ jobs:
           the_action: ${{ env.action }}
       - run: echo "hogeee"
         name: final
+      - uses: actions/github-script@v6
+        id: check-pr
+        if: github.event.issue.pull_request
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.issue.number
+            })
+            core.setOutput('ref', pr.data.head.ref)
+            core.setOutput('sha', pr.data.head.sha)
   deploy:
-    needs: parseOn
+    needs: parse
     if: needs.parseOn.outputs.action == 'deploy'
     uses: ./.github/workflows/dispatch.yml
     with:
       ref_name: main
   test:
-    needs: parseOn
+    needs: parse
     runs-on: ubuntu-latest
     if: needs.parseOn.outputs.action == 'test'
     steps:
-      - run: echo "test..."
+      - run: |
+          echo "${{ github.event.comment.body }}" >> comments.txt
+          git add comments.txt
+          git config user.name "${{ github.event.comment.user.login }}"
+          git config user.name "mail@aklaswad.com"
+          git commit -m "from comment"
+          git push origin ${{ needs.parse.outputs.ref }}
+
