@@ -1,0 +1,8 @@
+on: push
+name: test
+jobs:
+  parse:
+    name: Auto test
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
