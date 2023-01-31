@@ -1,0 +1,66 @@
+on: push
+name: Script Test On Push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        batch: ['foo', 'bar']
+    steps:
+    - run: whoami
+    - uses: actions/checkout@master
+    - uses: actions/github-script@v6
+      id: create_checks
+      with:
+        result-encoding: string
+        script: |
+          const repo = context.payload.repository
+          const res = await github.rest.checks.create({
+            owner: repo.owner.login,
+            repo: repo.name,
+            head_sha: context.sha,
+            name: 'Choooissu',
+            status: 'in_progress'
+          })
+          console.dir(res)
+          return res.data.id
+    - uses: ./helloworld
+      with:
+        who-to-greet: |
+          Akira
+          Tetsuo
+          Yamagata
+    - uses: actions/github-script@v6
+      env:
+        CHECK_ID: ${{steps.create_checks.outputs.result}}
+      with:
+        script: |
+          //console.dir({ context, github })
+          //console.dir(context.payload)
+          const helloworld = require('./helloworld')
+          const [ summary, text ] = await helloworld({ context, github })
+          const repo = context.payload.repository
+          const { CHECK_ID } = process.env
+          const payload = {
+            owner: repo.owner.login,
+            repo: repo.name,
+            check_run_id: CHECK_ID,
+            //head_sha: context.sha,
+            name: 'Choooissu',
+            title: 'titliii',
+            status: 'completed',
+            conclusion: 'success',
+            output: {
+              title: 'ok ok title da',
+              summary: summary,
+              text: text
+            }
+          }
+          console.dir(payload)
+          const res = await github.rest.checks.update(payload)
+          console.dir(res)
+    - if: always()
+      run: |
+        echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
+        echo "# Summary for Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
