@@ -79,7 +79,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ needs.parse.outputs.ref }}
       - run: |
           echo "${{ github.event.comment.body }}" >> comments.txt
