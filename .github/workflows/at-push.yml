@@ -9,7 +9,14 @@ jobs:
     steps:
     - run: whoami
     - run: echo "refname ${{ github.ref_name }}"
+    - run: echo "${{ toJSON( github ) }}"
     - uses: actions/checkout@master
+    - uses: actions/github-script@v6
+      name: dump
+      with:
+        script: |
+          console.dir( context, { depth: null } )
+          console.dir( github, { depth: null } )
     - uses: actions/github-script@v6
       id: create_checks
       with:
