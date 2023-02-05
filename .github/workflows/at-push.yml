@@ -10,6 +10,7 @@ jobs:
     - run: whoami
     - run: echo "refname ${{ github.ref_name }}"
     - run: echo "${{ toJSON( github ) }}"
+      name: Dump github
     - uses: actions/checkout@master
     - uses: actions/github-script@v6
       name: dump
