@@ -41,6 +41,8 @@ jobs:
         CHECK_ID: ${{steps.create_checks.outputs.result}}
       with:
         script: |
+          const repo = context.payload.repository
+          const { CHECK_ID } = process.env
           const payload = {
             owner: repo.owner.login,
             repo: repo.name,
