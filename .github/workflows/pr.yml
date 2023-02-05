@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "${{ toJSON( github ) }}"
+    - uses: actions/checkout@v3
+    - name: Merge?
+      run: |
+        git log -1
+        git diff
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: HEAD
+      run: |
+        git log -1
+        git diff
+
+
