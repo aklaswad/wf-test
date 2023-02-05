@@ -3,9 +3,6 @@ name: Script Test On Push
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        batch: ['foo', 'bar']
     steps:
     - run: whoami
     - run: echo "refname ${{ github.ref_name }}"
@@ -44,12 +41,6 @@ jobs:
         CHECK_ID: ${{steps.create_checks.outputs.result}}
       with:
         script: |
-          //console.dir({ context, github })
-          //console.dir(context.payload)
-          const helloworld = require('./helloworld')
-          const [ summary, text ] = await helloworld({ context, github })
-          const repo = context.payload.repository
-          const { CHECK_ID } = process.env
           const payload = {
             owner: repo.owner.login,
             repo: repo.name,
@@ -61,8 +52,8 @@ jobs:
             conclusion: 'success',
             output: {
               title: 'ok ok title da',
-              summary: summary,
-              text: text
+              summary: 'OKdesu',
+              text: 'okdesu'
             }
           }
           console.dir(payload)
