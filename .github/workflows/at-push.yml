@@ -85,3 +85,12 @@ jobs:
     if: always()
     steps:
     - run: echo '${{ toJSON(needs) }}'
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const res = async github.rest.actions.getWorkflowRun({
+            owner: 'Peatix',
+            repo: 'peatix',
+            run_id: contest.runId
+          });
+          console.dir(res, {depth: null})
