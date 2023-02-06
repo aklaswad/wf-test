@@ -4,6 +4,7 @@ jobs:
   badtest:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         type:
         - A
