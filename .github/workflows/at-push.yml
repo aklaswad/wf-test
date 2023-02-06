@@ -89,7 +89,7 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          const res = await github.rest.actions.getWorkflowRun({
+          const res = await github.rest.actions.listJobsForWorkflowRun({
             owner: 'aklaswad',
             repo: 'wf-test',
             run_id: context.runId
