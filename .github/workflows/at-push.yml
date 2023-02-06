@@ -1,6 +1,10 @@
 on: push
 name: Script Test On Push
 jobs:
+  badtest:
+    runs-on: ubuntu-latest
+    steps:
+    - run: exit 1
   test:
     runs-on: ubuntu-latest
     steps:
@@ -61,8 +65,17 @@ jobs:
           console.dir(payload)
           const res = await github.rest.checks.update(payload)
           console.dir(res)
+    - run: exit 1
+      name: Always fail
+    - run: echo hello
     - if: always()
       run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
         echo "# Summary for Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
         echo "- Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
+  final:
+    name: final
+    needs: [ test, badtest ]
+    if: always()
+    steps:
+      run: echo ${{ toJSON(needs) }}
