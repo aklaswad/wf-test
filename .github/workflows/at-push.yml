@@ -79,6 +79,7 @@ jobs:
         echo "# Summary for Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
         echo "- Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
   final:
+    runs-on: ubuntu-latest
     name: final
     needs: [ test, badtest ]
     if: always()
