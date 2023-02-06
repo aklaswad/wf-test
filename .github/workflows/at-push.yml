@@ -92,5 +92,5 @@ jobs:
             owner: 'Peatix',
             repo: 'peatix',
             run_id: context.runId
-          });
+          })
           console.dir(res, {depth: null})
