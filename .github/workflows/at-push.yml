@@ -3,6 +3,10 @@ name: Script Test On Push
 jobs:
   badtest:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        - A
+        - B
     steps:
     - run: exit 1
   test:
