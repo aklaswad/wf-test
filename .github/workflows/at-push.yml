@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        type:
         - A
         - B
     steps:
