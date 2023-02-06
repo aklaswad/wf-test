@@ -88,7 +88,7 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          const res = async github.rest.actions.getWorkflowRun({
+          const res = await github.rest.actions.getWorkflowRun({
             owner: 'Peatix',
             repo: 'peatix',
             run_id: context.runId
