@@ -91,6 +91,6 @@ jobs:
           const res = async github.rest.actions.getWorkflowRun({
             owner: 'Peatix',
             repo: 'peatix',
-            run_id: contest.runId
+            run_id: context.runId
           });
           console.dir(res, {depth: null})
