@@ -84,4 +84,4 @@ jobs:
     needs: [ test, badtest ]
     if: always()
     steps:
-    - run: echo "${{ toJSON(needs) }}"
+    - run: echo '${{ toJSON(needs) }}'
