@@ -90,8 +90,8 @@ jobs:
       with:
         script: |
           const res = await github.rest.actions.getWorkflowRun({
-            owner: 'Peatix',
-            repo: 'peatix',
+            owner: 'aklaswad',
+            repo: 'wf-test',
             run_id: context.runId
           })
           console.dir(res, {depth: null})
