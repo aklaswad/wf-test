@@ -21,9 +21,8 @@ jobs:
         tmphome=$(mktemp -d)
         HOME=${tmphome}
         git config --global --add safe.directory "${GITHUB_WORKSPACE}"
-        git config --global 'http.https://github.com/.extraheader' "$configvaluealias"
+        git config --global 'http.https://github.com/.extraheader' "$configvalue"
         git config --global 'url.https://github.com/.insteadOf' 'git@github.com:'
-        git config -l
         tmpdir=$(mktemp -d)
         # I love gh! this also set up git credentials.
         #echo "$token" | gh auth login --with-token
