@@ -36,7 +36,7 @@ jobs:
         fail=$( echo "$lastCheck" | jq '.fail' )
         jobs=$( echo "$lastCheck" | jq '.jobs')
         if [ "$fail" -gt 0 ] || [ "$jobs" = "0" ]; then
-          from=$(git mergebase "${head}" "${default}")
+          from=$(git merge-base "${head}" "${default}")
         fi
         echo 'CHANGED_FILES<<__FILENAMES__' >> $GITHUB_ENV
         git diff --name-only "${from}" "${head}" >> $GITHUB_ENV
