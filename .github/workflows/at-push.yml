@@ -9,7 +9,7 @@ jobs:
         token: ${{ secrets.ACTIONS_TOKEN }}
       run: |
         cred=$(echo 'x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
-        cred=$(echo '${{ secrets.GITHUB_TOKEN }}' | base64)
+        #cred=$(echo '${{ secrets.GITHUB_TOKEN }}' | base64)
         configvalue="AUTHORIZATION: basic ${cred}"
         echo "cred $cred"
         git config --global http.https://github.com/.extraheader "$configvalue"
