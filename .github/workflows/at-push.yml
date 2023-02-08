@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-
+        gh auth login
         git clone --bare --filter=blob:none --no-recurse-submodules git@github.com:${{ github.repository }}.git
 
 
