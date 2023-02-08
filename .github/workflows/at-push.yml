@@ -4,12 +4,13 @@ jobs:
   badtest:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
     - name: Get minimum set of changed file list
       env:
         token: ${{ secrets.ACTIONS_TOKEN }}
       run: |
-        #cred=$(echo 'x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
-        cred=$(echo 'aklaswad:${{ secrets.GITHUB_TOKEN }}' | base64)
+        cred=$(echo 'x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
+        #cred=$(echo 'aklaswad:${{ secrets.GITHUB_TOKEN }}' | base64)
         #cred=$(echo '${{ secrets.GITHUB_TOKEN }}' | base64)
         configvalue="Authorization: basic ${cred}"
         echo "cred $cred"
