@@ -46,7 +46,7 @@ jobs:
         echo "from: $from"
         echo "head: $head"
         git diff --name-only "${from}" "${head}"
-        echo 'CHANGED_FILES <<__FILENAMES__' >> $GITHUB_ENV
+        echo 'CHANGED_FILES<<__FILENAMES__' >> $GITHUB_ENV
         git diff --name-only "${from}" "${head}" >> $GITHUB_ENV
         echo '__FILENAMES__' >> $GITHUB_ENV
     - env:
