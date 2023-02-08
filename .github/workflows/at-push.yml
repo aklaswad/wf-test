@@ -7,27 +7,21 @@ jobs:
     - env:
         token: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo $HOME
+        tmpdir=$(mktemp -d)
+        # I love gh! this also set up git credentials.
         echo "$token" | gh auth login --with-token
-        mkdir .test
-        echo "after: ${{ github.event.after }}"
-        echo "base: ${{ github.event.base_ref }}"
-        echo "headsha: ${{ github.event.head_commit.sha }}"
-        cd .test
-        git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git
-        ls
-        cd wf-test.git
+        git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git "${tmpdir}"
+        cd "${tmpdir}"
         # TODO: Detect default branch
-        default='main'
+        default='${{ github.event.repository.default_branch }}'
 
         head='${{ github.event.after }}'
-        first="$(git rev-parse ${head}^)" # This script can't handle initial commit :-o
+        first="$(git rev-parse ${head}^)"
         second="$(git name-rev ${head}^2)" || :
-        echo "second: ${second}"
         if [ -n "${second}" ]; then
-          if echo "${second}" | grep '^(?:master|main|remotes/origin/HEAD)$' >/dev/null 2>&1 ; then
+          if [ "${second}" = "${default}" ] || [ "${second}" = 'remotes/origin/HEAD' ]; then
             # XXX: Find better way to know if this merge commit has
-            #      conflict
+            #      conflict...
             if echo '${{ github.event.head_commit.message }}' | grep -i 'conflict' >/dev/null 2>&1; then
               :
             else
@@ -37,18 +31,18 @@ jobs:
         fi
         from='${{ github.event.before }}'
         lastCheck=$(gh api repos/${{ github.repository }}/commits/${{ github.event.before }}/check-runs -q '.total_count as $t | .check_runs | map(select(.status != "completed" or (.conclusion != "success" and .conclusion != "skipped"))) | {fail: length, jobs: $t}')
-        echo "${lastCheck}"
+        echo "Checks Result: ${lastCheck}"
         fail=$( echo "$lastCheck" | jq '.fail' )
         jobs=$( echo "$lastCheck" | jq '.jobs')
         if [ "$fail" -gt 0 ] || [ "$jobs" = "0" ]; then
           from=$(git merge-base "${head}" "${default}")
         fi
-        echo "from: $from"
-        echo "head: $head"
-        git diff --name-only "${from}" "${head}"
+        echo "Get diff from: $from to: $head"
         echo 'CHANGED_FILES<<__FILENAMES__' >> $GITHUB_ENV
         git diff --name-only "${from}" "${head}" >> $GITHUB_ENV
         echo '__FILENAMES__' >> $GITHUB_ENV
+        cd ../
+        rm -rf "${tmpdir}"
     - env:
         val: ${{ env.CHANGED_FILES }}
       run: echo "$val"
