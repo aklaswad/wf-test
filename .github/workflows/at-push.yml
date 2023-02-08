@@ -4,12 +4,20 @@ jobs:
   badtest:
     runs-on: ubuntu-latest
     steps:
-    - env:
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get minimum set of changed file list
+      env:
+        token: ${{ secrets.ACTIONS_TOKEN }}
       run: |
+        const serverUrl = urlHelper.getServerUrl(this.settings.githubServerUrl);
+        this.tokenConfigKey = `http.${serverUrl.origin}/.extraheader`; // "origin" is SCHEME://HOSTNAME[:PORT]
+        const basicCredential = Buffer.from(`i
+        cred=$('x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
+        configvalue="AUTHORIZATION: basic ${cred}"
+        echo "cred $cred"
+        git config --global http.https://github.com/.extraheader "$configvalue"
         tmpdir=$(mktemp -d)
         # I love gh! this also set up git credentials.
-        echo "$token" | gh auth login --with-token
+        #echo "$token" | gh auth login --with-token
         git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git "${tmpdir}"
         cd "${tmpdir}"
         default='${{ github.event.repository.default_branch }}'
@@ -18,7 +26,7 @@ jobs:
         # If this commit is merge and it was from default branch,
         # this will get the name of default branch
         second="$(git name-rev ${head}^2)" || :
-        echo "head^2 = [$second]"
+        echo "head hat 2 = [$second]"
         if [ -n "${second}" ]; then
           if [ "${second}" = "${default}" ] || [ "${second}" = 'remotes/origin/HEAD' ]; then
             # XXX: Find better way to know if this merge commit has
@@ -26,6 +34,7 @@ jobs:
             if echo '${{ github.event.head_commit.message }}' | grep -i 'conflict' >/dev/null 2>&1; then
               :
             else
+              echo "It seems we can ignore changes at default branch"
               head="${first}"
             fi
           fi
