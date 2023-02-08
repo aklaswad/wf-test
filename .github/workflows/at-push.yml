@@ -13,8 +13,34 @@ jobs:
         cd .test
         git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git
         ls
+        cd wf-test.git
+        # TODO: Detect default branch
+        default='main'
 
-
+        head='HEAD'
+        first="$(git name-rev HEAD^1)" # This script can't handle initial commit :-o
+        second="$(git name-rev HEAD^2)" || :
+        if [ -n "${second}" ]; then
+          if [ "${second}" = "${default}" ]; then
+            # XXX: Find better way to know if this merge commit has
+            #      conflict
+            if echo '${{ github.event.head_commit.message }}' | grep -i 'conflict' >/dev/null 2>&1; then
+              :
+            else
+              head="${first}"
+            fi
+          fi
+        fi
+        from='${{ github.event.before }}'
+        lastCheck=$(gh api repos/${{ github.repository }}/commits/${{ github.event.before }}/check-runs -q '.total_count as $t | .check_runs | map(select(.status != "completed" or (.conclusion != "success" and .conclusion != "skipped"))) | {fail: length, jobs: $t}')
+        fail=$( echo "$lastCheck" | jq '.fail' )
+        jobs=$( echo "$lastCheck" | jq '.jobs')
+        if [ "$fail" -gt 0 ] || [ "$jobs" = "0" ]; then
+          from=$(git mergebase "${head}" "${default}")
+        fi
+        echo 'CHANGED_FILES<<__FILENAMES__' >> $GITHUB_ENV
+        git diff --name-only "${from}" "${head}" >> $GITHUB_ENV
+        echo '__FILENAMES__' >> $GITHUB_ENV
   test:
     runs-on: ubuntu-latest
     steps:
