@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - env:
-      token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo $HOME
         echo "$token" | gh auth login --with-token
