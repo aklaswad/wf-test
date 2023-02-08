@@ -17,7 +17,7 @@ jobs:
         tmpdir=$(mktemp -d)
         # I love gh! this also set up git credentials.
         #echo "$token" | gh auth login --with-token
-        git clone --bare --filter=blob:none --no-recurse-submodules git@github.com/${{ github.repository }}.git "${tmpdir}"
+        git clone --bare --filter=blob:none --no-recurse-submodules git@github.com:${{ github.repository }}.git "${tmpdir}"
         cd "${tmpdir}"
         default='${{ github.event.repository.default_branch }}'
         head='${{ github.event.after }}'
