@@ -8,9 +8,6 @@ jobs:
       env:
         token: ${{ secrets.ACTIONS_TOKEN }}
       run: |
-        const serverUrl = urlHelper.getServerUrl(this.settings.githubServerUrl);
-        this.tokenConfigKey = `http.${serverUrl.origin}/.extraheader`; // "origin" is SCHEME://HOSTNAME[:PORT]
-        const basicCredential = Buffer.from(`i
         cred=$('x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
         configvalue="AUTHORIZATION: basic ${cred}"
         echo "cred $cred"
