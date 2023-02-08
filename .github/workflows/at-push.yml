@@ -6,6 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: cat .git/config
+    - run: git config -l
     - name: Get minimum set of changed file list
       env:
         token: ${{ secrets.GITHUB_TOKEN }}
