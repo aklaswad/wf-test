@@ -12,12 +12,13 @@ jobs:
         echo "$token" | gh auth login --with-token
         git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git "${tmpdir}"
         cd "${tmpdir}"
-        # TODO: Detect default branch
         default='${{ github.event.repository.default_branch }}'
-
         head='${{ github.event.after }}'
         first="$(git rev-parse ${head}^)"
+        # If this commit is merge and it was from default branch,
+        # this will get the name of default branch
         second="$(git name-rev ${head}^2)" || :
+        echo "head^2 = [$second]"
         if [ -n "${second}" ]; then
           if [ "${second}" = "${default}" ] || [ "${second}" = 'remotes/origin/HEAD' ]; then
             # XXX: Find better way to know if this merge commit has
