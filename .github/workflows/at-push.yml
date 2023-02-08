@@ -10,6 +10,9 @@ jobs:
         echo $HOME
         echo "$token" | gh auth login --with-token
         mkdir .test
+        echo "after: ${{ github.event.after }}"
+        echo "base: ${{ github.event.base_ref }}"
+        echo "headsha: ${{ github.event.head_commit.sha }}"
         cd .test
         git clone --bare --filter=blob:none --no-recurse-submodules https://github.com/${{ github.repository }}.git
         ls
@@ -21,7 +24,7 @@ jobs:
         first="$(git name-rev HEAD^1)" # This script can't handle initial commit :-o
         second="$(git name-rev HEAD^2)" || :
         if [ -n "${second}" ]; then
-          if [ "${second}" = "${default}" ]; then
+          if echo "${second}" | grep '^(?:master|main|remotes/origin/HEAD)$' >/dev/null 2>&1 then
             # XXX: Find better way to know if this merge commit has
             #      conflict
             if echo '${{ github.event.head_commit.message }}' | grep -i 'conflict' >/dev/null 2>&1; then
