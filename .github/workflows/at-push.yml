@@ -20,9 +20,9 @@ jobs:
         # TODO: Detect default branch
         default='main'
 
-        head='HEAD'
-        first="$(git name-rev HEAD^1)" # This script can't handle initial commit :-o
-        second="$(git name-rev HEAD^2)" || :
+        head='${{ github.event.after }}'
+        first="$(git rev-parse ${head}^)" # This script can't handle initial commit :-o
+        second="$(git name-rev ${head}^2)" || :
         echo "second: ${second}"
         if [ -n "${second}" ]; then
           if echo "${second}" | grep '^(?:master|main|remotes/origin/HEAD)$' >/dev/null 2>&1 ; then
