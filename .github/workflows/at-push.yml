@@ -3,14 +3,12 @@ name: Script Test On Push
 jobs:
   badtest:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        type:
-        - A
-        - B
     steps:
-    - run: exit 1
+    - run: |
+
+        git clone --bare --filter=blob:none --no-recurse-submodules git@github.com:${{ github.repository }}.git
+
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -92,6 +90,6 @@ jobs:
           const res = await github.rest.actions.listJobsForWorkflowRun({
             owner: 'aklaswad',
             repo: 'wf-test',
-            run_id: context.runId
+            run_id: context.runid
           })
           console.dir(res, {depth: null})
