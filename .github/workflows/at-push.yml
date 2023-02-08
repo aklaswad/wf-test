@@ -4,11 +4,11 @@ jobs:
   badtest:
     runs-on: ubuntu-latest
     steps:
-    env:
-      token: ${{ secrets.GITHUB_TOKEN }}
     - run: |
         echo $token | gh auth login --with-token
         git clone --bare --filter=blob:none --no-recurse-submodules git@github.com:${{ github.repository }}.git
+      env:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
 
   test:
