@@ -19,6 +19,7 @@ jobs:
         orighome="${HOME}"
         tmphome=$(mktemp -d)
         HOME=${tmphome}
+        git config --global --add safe.directory "${GITHUB_WORKSPACE}"
         git config --global http.https://github.com/.extraheader "$configvalue"
         git config --global url.https://github.com/.insteadOf 'git@github.com:'
         tmpdir=$(mktemp -d)
