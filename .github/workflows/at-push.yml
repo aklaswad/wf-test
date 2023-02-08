@@ -41,6 +41,9 @@ jobs:
         echo 'CHANGED_FILES<<__FILENAMES__' >> $GITHUB_ENV
         git diff --name-only "${from}" "${head}" >> $GITHUB_ENV
         echo '__FILENAMES__' >> $GITHUB_ENV
+    - env:
+        val: ${{ env.CHANGED_FILES }}
+      run: echo "$val"
   test:
     runs-on: ubuntu-latest
     steps:
