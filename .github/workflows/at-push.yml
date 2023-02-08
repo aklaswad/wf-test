@@ -11,14 +11,14 @@ jobs:
         #cred=$(echo 'x-access-token:${{ secrets.GITHUB_TOKEN }}' | base64)
         cred=$(echo 'aklaswad:${{ secrets.GITHUB_TOKEN }}' | base64)
         #cred=$(echo '${{ secrets.GITHUB_TOKEN }}' | base64)
-        configvalue="AUTHORIZATION: basic ${cred}"
+        configvalue="Authorization: basic ${cred}"
         echo "cred $cred"
         git config --global http.https://github.com/.extraheader "$configvalue"
         git config --global url.https://github.com/.insteadOf 'git@github.com:'
         tmpdir=$(mktemp -d)
         # I love gh! this also set up git credentials.
         #echo "$token" | gh auth login --with-token
-        git clone --bare --filter=blob:none --no-recurse-submodules git@github.com:${{ github.repository }}.git "${tmpdir}"
+        git clone --bare --filter=blob:none --no-recurse-submodules https://aklaswad:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "${tmpdir}"
         cd "${tmpdir}"
         default='${{ github.event.repository.default_branch }}'
         head='${{ github.event.after }}'
