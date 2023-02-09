@@ -5,6 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - run: |
+        git config user.name peatix
+        git config user.email dev@peatix.com
+        git config push.default upstream
+        echo foo >> foeee.txt
+        git add foeee.txt
+        git commit -m 'updated cpan bundles'
+        git push
     - run: cat .git/config
     - run: git config -l
     - name: Get minimum set of changed file list
