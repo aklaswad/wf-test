@@ -1,5 +1,7 @@
 name: Multi event handling
 on:
+  issue_comment:
+  pull_request:
   push:
   workflow_dispatch:
 jobs:
