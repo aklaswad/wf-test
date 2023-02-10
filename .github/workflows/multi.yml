@@ -1,0 +1,9 @@
+name: Multi event handling
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "event is ${{ github.event_name }}"
