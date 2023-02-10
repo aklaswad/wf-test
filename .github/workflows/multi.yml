@@ -6,4 +6,4 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
-    - run: echo event is ${{ github.event_name }}
+    - run: echo "event is ${{ github.event_name }}"
