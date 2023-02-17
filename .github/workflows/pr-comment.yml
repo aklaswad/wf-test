@@ -16,6 +16,7 @@ jobs:
     steps:
       - run: echo refname "${{ github.ref_name }}"
       - run: echo ref_name $GITHUB_REF_NAME
+      - run: echo hello
       - uses: actions/github-script@v6
         with:
           script: |
