@@ -12,6 +12,8 @@ jobs:
     env:
       body: ${{ github.event.comment.body }}
     steps:
+      - run: echo refname "${{ github.ref_name }}"
+      - run: echo ref_name $GITHUB_REF_NAME
       - uses: actions/github-script@v6
         with:
           script: |
