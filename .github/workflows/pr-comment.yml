@@ -1,4 +1,6 @@
-on: issue_comment
+on:
+  issue_comment:
+  workflow_dispatch:
 name: comment run
 permissions:
   contents: write
