@@ -21,6 +21,34 @@ jobs:
         with:
           script: |
             console.dir( context, { depth: null })
+
+      - uses: actions/checkout@v3
+      - run: echo refname "${{ github.ref_name }}"
+      - name: Fetch PR info
+        id: pr
+        if: ${{ ! github.event.issue || github.event.issue.pull_request }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_ID: ${{ github.event.issue.number || github.ref_name }}
+        run: |
+          echo "Fetch PR for $PR_ID"
+          json="$(gh pr view --json number,labels,headRefName,title,url "$PR_ID" -q '.')"
+          echo "$json"
+          echo "ref=$(echo "$json" | jq -r '.headRefName')" >> $GITHUB_OUTPUT
+          echo "url=$(echo "$json" | jq -r '.url')" >> $GITHUB_OUTPUT
+          echo "number=$(echo "$json" | jq -r '.number')" >> $GITHUB_OUTPUT
+          echo "title=$(echo "$json" | jq -r '.title')" >> $GITHUB_OUTPUT
+          labels="$(echo "$json" | jq -c '.labels | map(.name)')"
+          echo "labels ... $labels"
+          echo "labels=$labels" >> $GITHUB_OUTPUT
+      - run: |
+          echo '
+            ref    "${{ steps.pr.outputs.ref }}"
+            url    "${{ steps.pr.outputs.url }}"
+            number "${{ steps.pr.outputs.number }}"
+            title  "${{ steps.pr.outputs.title }}"
+            labels "${{ steps.pr.outputs.labels }}"
+          '
       - run: echo "greeting ${{ github.event.comment.user.login }}"
       - uses: actions/github-script@v6
         id: pr-info
