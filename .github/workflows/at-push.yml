@@ -2,7 +2,7 @@ on: push
 name: Script Test On Push
 jobs:
   reuse:
-    uses: ./github/actions/reuse.yml
+    uses: ./.github/actions/reuse.yml
   test:
     runs-on: ubuntu-latest
     steps:
