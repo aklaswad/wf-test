@@ -3,6 +3,7 @@ name: Script Test On Push
 jobs:
   reuse:
     uses: ./.github/workflows/reuse.yml
+    secrets: inherit
   test:
     runs-on: ubuntu-latest
     steps:
