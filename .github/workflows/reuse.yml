@@ -12,3 +12,14 @@ jobs:
       run: |
         echo "$pn"
         echo $pn | wc -c
+    - name: publish contents
+      run: |
+        mkdir contents
+        echo foo > contents/foo.txt
+    - name: upload-contents
+      uses: actions/upload-artifact@v3
+      with:
+        name: contents
+        path: |
+          contents
+
