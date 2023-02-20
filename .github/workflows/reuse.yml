@@ -6,3 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo hello
+    - name: print secret
+      env:
+        pn: ${{ secrets.PRIVATE_NAME }}
+      run: |
+        echo "$pn"
+        echo $pn | wc -c

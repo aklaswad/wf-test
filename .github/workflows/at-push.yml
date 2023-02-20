@@ -11,6 +11,12 @@ jobs:
     - run: echo "${{ toJSON( github ) }}"
       name: Dump github
     - uses: actions/checkout@master
+    - name: print secret
+      env:
+        pn: ${{ secrets.PRIVATE_NAME }}
+      run: |
+        echo "$pn"
+        echo $pn | wc -c
     - uses: actions/github-script@v6
       name: dump
       with:
