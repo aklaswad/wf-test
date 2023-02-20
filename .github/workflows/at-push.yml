@@ -17,7 +17,7 @@ jobs:
         script: |
           console.dir( context, { depth: null } )
           console.dir( github, { depth: null } )
-      run: |
+    - run: |
         echo "::set-output name=message::Test A ${{ (job.status == 'success' && '✅') || '❌' }}"
         echo "# Summary for Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
         echo "- Test ${{ matrix.batch }}" >> $GITHUB_STEP_SUMMARY
