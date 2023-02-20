@@ -3,6 +3,6 @@ on:
   workflow_call:
 jobs:
   reused:
-  runs-on: ubuntu-latest
-  steps:
-  - run: echo hello
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo hello
