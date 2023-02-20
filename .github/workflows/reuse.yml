@@ -5,7 +5,7 @@ jobs:
   reused:
     runs-on: ubuntu-latest
     steps:
-    - run: echo hello
+    - run: echo hello reuse-dev
     - name: print secret
       env:
         pn: ${{ secrets.PRIVATE_NAME }}
