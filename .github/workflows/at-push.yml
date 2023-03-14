@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: whoami
+    - run: arch
     - run: echo "refname ${{ github.ref_name }}"
     - run: echo "${{ toJSON( github ) }}"
       name: Dump github
