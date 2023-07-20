@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: whoami
+    - if: env.foo.bar.buzz || always()
+      run: echo "Can I run?"
     - run: arch
     - run: echo "refname ${{ github.ref_name }}"
     - run: echo "${{ toJSON( github ) }}"
