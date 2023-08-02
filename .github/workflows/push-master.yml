@@ -1,0 +1,9 @@
+on:
+  push:
+    branches:
+      - master
+jobs:
+  update-master:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cat $GITHUB_EVENT
