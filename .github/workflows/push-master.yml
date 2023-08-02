@@ -7,3 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: cat $GITHUB_EVENT_PATH
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.dir(context.payload, {depth: null})
