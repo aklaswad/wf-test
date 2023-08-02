@@ -13,5 +13,10 @@ jobs:
             const commits = context.payload.commits
             const message = commits[commits.length - 1].message
             const [ match, capture ] = message.split('\n')[0].match(/ from aklaswad\/(.*)$/)
+            core.exportVariable('mergedBranch', capture)
             console.log({match, capture})
             console.dir(context.payload, {depth: null})
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(process.env.mergedBranch)
