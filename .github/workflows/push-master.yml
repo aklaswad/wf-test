@@ -6,4 +6,4 @@ jobs:
   update-master:
     runs-on: ubuntu-latest
     steps:
-      - run: cat $GITHUB_EVENT
+      - run: cat $GITHUB_EVENT_PATH
