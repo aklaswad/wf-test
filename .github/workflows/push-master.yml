@@ -10,4 +10,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
+            const commits = context.payload.commits
+            const message = commits[commits.length - 1].message
+            const [ branch ] = message.split('\n')[0].match(/ from aklaswad\/(.*)$/)
+            console.log({branch})
             console.dir(context.payload, {depth: null})
