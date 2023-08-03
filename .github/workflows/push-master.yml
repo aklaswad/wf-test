@@ -10,7 +10,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.dir(context.payload, {depth: null})
+            //console.dir(context.payload, {depth: null})
 
             const res = await github.request(`GET /repos/aklaswad/wf-test/commits/${context.payload.after}/pulls`, {
               owner: 'aklaswad',
@@ -20,9 +20,13 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               }
             })
+            console.dir(res, {depth: null})
             if ( res ) {
               core.exportVariable('pullNumber', res.number)
               core.exportVariable('pullTitle', res.title)
+            }
+            else {
+              console.error('failed...', res)
             }
       - uses: actions/github-script@v6
         with:
