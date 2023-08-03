@@ -27,4 +27,4 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(process.env.mergedBranch)
+            console.log(process.env.pullTitle, process.env.pullNumber)
