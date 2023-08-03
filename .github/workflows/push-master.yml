@@ -21,9 +21,9 @@ jobs:
               }
             })
             console.dir(res, {depth: null})
-            if ( res ) {
-              core.exportVariable('pullNumber', res.number)
-              core.exportVariable('pullTitle', res.title)
+            if ( res && res.data && res.data.length ) {
+              core.exportVariable('pullNumber', res.data[0].number)
+              core.exportVariable('pullTitle', res.data[0].title)
             }
             else {
               console.error('failed...', res)
