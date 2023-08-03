@@ -1,12 +1,1 @@
-a
-d
-o
-l
-f
-f
-g
-h
-i
-j
-k
-l
+time
