@@ -10,12 +10,20 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const commits = context.payload.commits
-            const message = commits[commits.length - 1].message
-            const [ match, capture ] = message.split('\n')[0].match(/ from aklaswad\/(.*)$/)
-            core.exportVariable('mergedBranch', capture)
-            console.log({match, capture})
             console.dir(context.payload, {depth: null})
+
+            const res = await github.request(`GET /repos/aklaswad/wf-test/commits/${context.payload.after}/pulls`, {
+              owner: 'aklaswad',
+              repo: 'wf-test',
+              commit_sha: context.payload.after,
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
+            })
+            if ( res ) {
+              core.exportVariable('pullNumber', res.number)
+              core.exportVariable('pullTitle', res.title)
+            }
       - uses: actions/github-script@v6
         with:
           script: |
