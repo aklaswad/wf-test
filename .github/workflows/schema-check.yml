@@ -20,6 +20,7 @@ jobs:
       - name: Fetch latest main schema
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository.name }}
         run: |
           gh api \
             -H "Accept: application/vnd.github.v3.raw" \
