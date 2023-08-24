@@ -31,6 +31,7 @@ jobs:
           mysql -uroot -proot testing < main.sql
       - name: Check schema diff
         run: |
+          set -x
           delimiter="$(openssl rand -hex 8)"
           cat << __HEREDOC__ > __schema_update.comment.txt
           # Schema update
@@ -42,8 +43,9 @@ jobs:
           cat __schema_update.comment.txt
       - name: Post diff to pull comment
         env:
+          PULL_NUMBER: ${{ context.}}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository.name }}
         run: |
-
+          gh pr comment --file __schema_update.comment.txt
 
