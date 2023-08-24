@@ -30,4 +30,4 @@ jobs:
           mysql -uroot -proot -e 'CREATE DATABASE testing CHARACTER SET utf8mb4'
           mysql -uroot -proot testing < main.sql
       - name: Check schema diff
-        run: mysqldef -uroot -proot --file sql/dump.sql --dry-run testing
+        run: ./mysqldef -uroot -proot --file sql/dump.sql --dry-run testing
