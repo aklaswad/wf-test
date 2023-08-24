@@ -32,12 +32,13 @@ jobs:
       - name: Check schema diff
         run: |
           set -x
+          alter="$(./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing)"
           delimiter="$(openssl rand -hex 8)"
           cat << __HEREDOC__ > __schema_update.comment.txt
           # Schema update
 
           ```
-          $(./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing)
+          $alter
           ```
           __HEREDOC__
           cat __schema_update.comment.txt
@@ -46,6 +47,6 @@ jobs:
           PULL_NUMBER: ${{ github.event.number }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh pr comment --file __schema_update.comment.txt --edit-last "${PULL_NUMBER}" || \
-          gh pr comment --file __schema_update.comment.txt "${PULL_NUMBER}"
+          gh pr comment -F __schema_update.comment.txt --edit-last "${PULL_NUMBER}" || \
+          gh pr comment -F __schema_update.comment.txt "${PULL_NUMBER}"
 
