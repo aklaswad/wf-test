@@ -38,9 +38,9 @@ jobs:
           cat << __HEREDOC__ > __schema_update.comment.txt
           # Schema update
 
-          ```
-          "$alter"
-          ```
+          \`\`\`
+          $alter
+          \`\`\`
           __HEREDOC__
           cat __schema_update.comment.txt
       - name: Post diff to pull comment
