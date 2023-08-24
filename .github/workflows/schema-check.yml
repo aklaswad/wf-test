@@ -43,9 +43,9 @@ jobs:
           cat __schema_update.comment.txt
       - name: Post diff to pull comment
         env:
-          PULL_NUMBER: ${{ context.}}
+          PULL_NUMBER: ${{ github.event.number }}
           GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository.name }}
         run: |
-          gh pr comment --file __schema_update.comment.txt
+          gh pr comment --file __schema_update.comment.txt --edit-last "${PULL_NUMBER}" || \
+          gh pr comment --file __schema_update.comment.txt "${PULL_NUMBER}"
 
