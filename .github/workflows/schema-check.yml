@@ -29,6 +29,7 @@ jobs:
         run: |
           mysql -uroot -proot -e 'CREATE DATABASE testing CHARACTER SET utf8mb4'
           mysql -uroot -proot testing < main.sql
+          mysql -uroot -proot testing -e 'show create table book'
       - name: Check schema diff
         run: |
           set -x
@@ -38,7 +39,7 @@ jobs:
           # Schema update
 
           ```
-          $alter
+          "$alter"
           ```
           __HEREDOC__
           cat __schema_update.comment.txt
