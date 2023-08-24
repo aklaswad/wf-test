@@ -30,4 +30,20 @@ jobs:
           mysql -uroot -proot -e 'CREATE DATABASE testing CHARACTER SET utf8mb4'
           mysql -uroot -proot testing < main.sql
       - name: Check schema diff
-        run: ./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing
+        run: |
+          delimiter="$(openssl rand -hex 8)"
+          cat << __HEREDOC__ > __schema_update.comment.txt
+          # Schema update
+
+          ```
+          $(./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing)
+          ```
+          __HEREDOC__
+          cat __schema_update.comment.txt
+      - name: Post diff to pull comment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository.name }}
+        run: |
+
+
