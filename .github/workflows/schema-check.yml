@@ -1,0 +1,32 @@
+name: Post schema changes
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    paths:
+      - sql/schema.sql
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md#mysql
+      - name: Start mysql
+        run: sudo systemctl start mysql.service
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Download mysqldef
+        run: wget -O - https://github.com/k0kubun/sqldef/releases/latest/download/mysqldef_linux_amd64.tar.gz | tar xvz
+      - name: Fetch latest main schema
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            -H "Accept: application/vnd.github.v3.raw" \
+            "repos/${GITHUB_REPOSITORY}/contents/sql/schema.sql?ref=main" > main.sql
+      - name: Create DB for compare
+        run: |
+          mysql -uroot -proot -e 'CREATE DATABASE testing CHARACTER SET utf8mb4'
+          mysql -uroot -proot testing < main.sql
+      - name: Check schema diff
+        run: mysqldef -uroot -proot --file sql/dump.sql --dry-run testing
