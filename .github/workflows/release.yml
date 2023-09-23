@@ -1,0 +1,19 @@
+name: Release package
+
+on:
+  release:
+    types:
+      - published
+jobs:
+  upload-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+      - name: Build
+        run: |
+          touch released.txt
+      - name: debug
+        run: cat $GITHUB_EVENT_PATH
