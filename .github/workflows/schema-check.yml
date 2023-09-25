@@ -67,8 +67,10 @@ jobs:
 
             const own = comments.data.slice(0,3).find(comment => comment.user.login === 'github-actions[bot]')
             console.dir(own)
-            if ( !own ) {
-              const newComment = await github.request(`POST /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
+            const id = own
+                     ? own.id
+                     : (
+              await github.request(`POST /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pullNumber,
@@ -77,7 +79,6 @@ jobs:
                   'X-GitHub-Api-Version': '2022-11-28'
                 }
               })
-              console.dir(newComment)
-
-            }
+              ).data.id
+            console.log({id})
 
