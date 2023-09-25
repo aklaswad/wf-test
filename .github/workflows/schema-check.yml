@@ -54,7 +54,7 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo
-            //console.dir(context, {depth: null})
+            console.dir(context, {depth: null})
             const pullNumber = context.payload.pull_request.number
             const comments = await github.request(`GET /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
               owner: context.repo.owner,
@@ -65,20 +65,21 @@ jobs:
               }
             })
 
-            const own = comments.data.slice(0,3).find(comment => comment.user.login === 'github-actions[bot]')
-            console.dir(own)
-            const id = own
-                     ? own.id
-                     : (
-              await github.request(`POST /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
+            const own = comments.data.find(comment => comment.user.login === 'github-actions[bot]')
+            async function create () {
+              console.log("create new comment")
+              const res = await github.request(`POST /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pullNumber,
-                body: 'hello pull request!',
+                body: '',
                 headers: {
                   'X-GitHub-Api-Version': '2022-11-28'
                 }
-              })
-              ).data.id
-            console.log({id})
+              }
+              console.log("Created new comment", res.data.id)
+              return res.data
+            }
+            const {id, body} = own ? own : create()
+            console.log({id, body})
 
