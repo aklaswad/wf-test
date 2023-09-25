@@ -54,7 +54,7 @@ jobs:
         with:
           script: |
             const { owner, repo } = context.repo
-            console.dir(context, {depth: null})
+            //console.dir(context, {depth: null})
             const pullNumber = context.payload.pull_request.number
             const comments = await github.request(`GET /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
               owner: context.repo.owner,
@@ -64,4 +64,7 @@ jobs:
                 'X-GitHub-Api-Version': '2022-11-28'
               }
             })
-            console.dir(comments, {depth: null})
+
+            const own = comments.data.slice(0,3).find(comment => comment.user.login === 'github-actions[bot]')
+            console.dir(own)
+
