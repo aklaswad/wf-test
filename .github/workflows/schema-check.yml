@@ -20,6 +20,7 @@ jobs:
       - name: Fetch latest main schema
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository.name }}
         run: |
           gh api \
             -H "Accept: application/vnd.github.v3.raw" \
@@ -28,6 +29,7 @@ jobs:
         run: |
           mysql -uroot -proot -e 'CREATE DATABASE testing CHARACTER SET utf8mb4'
           mysql -uroot -proot testing < main.sql
+          mysql -uroot -proot testing -e 'show create table book'
       - name: Check schema diff
         run: mysqldef -uroot -proot --file sql/dump.sql --dry-run testing
       - name: pull info
@@ -45,3 +47,25 @@ jobs:
               }
             })
             console.dir(comments, {depth: null})
+
+        run: |
+          set -x
+          alter="$(./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing)"
+          delimiter="$(openssl rand -hex 8)"
+          cat << __HEREDOC__ > __schema_update.comment.txt
+          # Schema update
+
+          \`\`\`
+          $alter
+          \`\`\`
+          __HEREDOC__
+          cat __schema_update.comment.txt
+      - name: Post diff to pull comment
+        env:
+          PULL_NUMBER: ${{ github.event.number }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment -F __schema_update.comment.txt --edit-last "${PULL_NUMBER}" || \
+          gh pr comment -F __schema_update.comment.txt "${PULL_NUMBER}"
+
+
