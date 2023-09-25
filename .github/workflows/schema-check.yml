@@ -55,6 +55,7 @@ jobs:
           with:
             script: |
               const { owner, repo } = context.repo
+              console.dir(context, {depth: null})
               const pullNumber = context.payload.pull.number
               const comments = await github.request(`GET /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
                 owner: context.repo.owner,
