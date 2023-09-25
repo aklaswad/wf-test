@@ -4,8 +4,7 @@ on:
     types:
       - opened
       - synchronize
-    paths:
-      - sql/schema.sql
+
 jobs:
   test:
     runs-on: ubuntu-latest
