@@ -15,6 +15,12 @@ jobs:
     - run: echo "${{ toJSON( github ) }}"
       name: Dump github
     - uses: actions/checkout@master
+    - env:
+        true1: ${{ 1 == true }}
+        true2: ${{ 'true' == true }}
+      run: |
+        echo "$true1"
+        echo "$true2"
     - name: print secret
       env:
         pn: ${{ secrets.PRIVATE_NAME }}
