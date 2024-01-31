@@ -14,7 +14,9 @@ jobs:
     - run: echo "refname ${{ github.ref_name }}"
     - run: echo "${{ toJSON( github ) }}"
       name: Dump github
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v4
+      with:
+        filter: tree:0
     - name: print secret
       env:
         pn: ${{ secrets.PRIVATE_NAME }}
