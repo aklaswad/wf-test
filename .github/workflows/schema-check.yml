@@ -30,6 +30,23 @@ jobs:
           mysql -uroot -proot testing < main.sql
           mysql -uroot -proot testing -e 'show create table book'
       - name: Check schema diff
+        run: mysqldef -uroot -proot --file sql/dump.sql --dry-run testing
+      - name: pull info
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo
+            const pullNumber = context.payload.pull.number
+            const comments = await github.request(`GET /repos/${owner}/${repo}/issues/${pullNumber}/comments`, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullNumber,
+              headers: {
+                'X-GitHub-Api-Version': '2022-11-28'
+              }
+            })
+            console.dir(comments, {depth: null})
+
         run: |
           set -x
           alter="$(./mysqldef -uroot -proot --file sql/schema.sql --dry-run testing)"
@@ -82,5 +99,6 @@ jobs:
             }
             const {id, body} = own ? own : create()
             console.log({id, body})
+
 
 
