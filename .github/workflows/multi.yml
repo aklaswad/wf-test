@@ -1,9 +1,12 @@
 name: Multi event handling
 on:
+  issue_comment:
+  pull_request:
   push:
   workflow_dispatch:
 jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "event is ${{ github.event_name }}"
+    - run: echo "event is the ${{ github.event_name }}"
+    - run: cat $GITHUB_EVENT_PATH
