@@ -1,6 +1,16 @@
 on: push
 name: Script Test On Push
 jobs:
+  test1:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'push'
+    steps:
+    - run: echo "Hello, world!"
+  test2:
+      runs-on: ubuntu-latest
+      if: "${{github.event_name}} != 'push'"
+      steps:
+      - run: echo "Hello, world!"
   reuse:
     uses: ./.github/workflows/reuse.yml
     secrets: inherit
