@@ -3,6 +3,8 @@ on:
     types:
       - opened
       - synchronize
+      - labeled
+      - unlabeled
 jobs:
   test:
     runs-on: ubuntu-latest
