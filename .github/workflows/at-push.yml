@@ -11,6 +11,12 @@ jobs:
       if: "${{github.event_name}} != 'push'"
       steps:
       - run: echo "Hello, world!"
+  test3:
+    runs-on: ubuntu-latest
+    if: ${{github.event_name}} != 'push'
+    steps:
+    - run: echo "Hello, world!"
+
   reuse:
     uses: ./.github/workflows/reuse.yml
     secrets: inherit
